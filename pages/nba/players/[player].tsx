@@ -9,16 +9,13 @@ export default function Player() {
   const router = useRouter();
   const id = router.query.player;
 
-  console.log(id);
-
   const fetchStatsByPlayer = async () => {
     await axios
       .get(
-        `https://www.balldontlie.io/api/v1/stats?seasons[]=2022&player_ids[]=${id}` // tatum player_ids[]=434 d dame player_ids[]=278
+        `https://www.balldontlie.io/api/v1/stats?seasons[]=2022&player_ids[]=${id}`
       )
       .then((res) => {
         if (res.data.data) {
-          console.log(res.data.data);
           setPlayerStat(res.data.data);
         }
       });

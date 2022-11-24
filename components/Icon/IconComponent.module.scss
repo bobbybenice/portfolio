@@ -1,0 +1,86 @@
+.icon {
+  &.pathFill {
+    path {
+      fill: var(--iconColor);
+    }
+
+    &.colored-icon-component--has-hover {
+      &:hover {
+        path {
+          fill: var(--iconHoverColor);
+        }
+      }
+    }
+  }
+
+  &.firstPathFill {
+    path:first-of-type {
+      fill: var(--iconColor);
+    }
+  }
+
+  &.circleFill {
+    circle {
+      fill: var(--iconColor);
+    }
+  }
+
+  &.pathAndCircleFill {
+    path,
+    circle {
+      fill: var(--iconColor);
+    }
+  }
+
+  &.pathFillCircleStroke {
+    path {
+      fill: var(--iconColor);
+    }
+    circle {
+      stroke: var(--iconColor);
+    }
+  }
+
+  &.rectFill {
+    rect {
+      fill: var(--iconColor);
+    }
+  }
+
+  &.rectStroke {
+    rect {
+      stroke: var(--iconColor);
+    }
+  }
+
+  &.pathStroke {
+    path {
+      stroke: var(--iconColor);
+    }
+  }
+
+  &.gFill {
+    g {
+      fill: var(--iconColor);
+    }
+  }
+
+  &.strokeFill {
+    g {
+      stroke: var(--iconColor);
+    }
+  }
+
+  &.rectCircleFill {
+    rect,
+    circle {
+      fill: var(--iconColor);
+    }
+  }
+
+  // &.identifierFill {
+  //   .colored-icon-target {
+  //     fill: var(--iconColor);
+  //   }
+  // }
+}

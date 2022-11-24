@@ -1,0 +1,144 @@
+@import './animations';
+@import './reset';
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Arial', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  scroll-behavior: smooth;
+  /*
+    Font weight
+  */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  /*
+    Heading 01
+    32/40 mobile
+    48/56 desktop
+  */
+  --heading-01-mobile-font-size: 2rem;
+  --heading-01-mobile-line-height: 2.5rem;
+  --heading-01-desktop-font-size: 3rem;
+  --heading-01-desktop-line-height: 3.5rem;
+  /*
+    Heading 02 / 03
+    20/28 mobile
+    24/32 desktop
+  */
+  --heading-02-03-mobile-font-size: 1.25rem;
+  --heading-02-03-mobile-line-height: 1.75rem;
+  --heading-02-03-desktop-font-size: 1.5rem;
+  --heading-02-03-desktop-line-height: 2rem;
+  /*
+    Heading 04
+    18/24 mobile
+    18/24 desktop
+  */
+  --heading-04-mobile-font-size: 1.125rem;
+  --heading-04-mobile-line-height: 1.5rem;
+  --heading-04-desktop-font-size: 1.125rem;
+  --heading-04-desktop-line-height: 1.5rem;
+  /*
+    Body 01 / 02
+    18/24 mobile / desktop
+  */
+  --body-01-02-font-size: 1.125rem;
+  --body-01-02-line-height: 1.5rem;
+  /*
+    Body 03
+    16/24 mobile
+    14/20 desktop
+  */
+  --body-03-mobile-font-size: 1rem;
+  --body-03-mobile-line-height: 1.5rem;
+  --body-03-desktop-font-size: 1.5rem;
+  --body-03-desktop-line-height: 1.25rem;
+  /* 
+    Body 04: Label
+    14/20 mobile
+    12/16 desktop
+  */
+  --body-04-mobile-font-size: 0.875rem;
+  --body-04-mobile-line-height: 1.25rem;
+  --body-04-desktop-font-size: 0.75rem;
+  --body-04-desktop-line-height: 1rem;
+  /*
+    Detail 01: Button  
+    16/24 mobile
+    12/14 desktop
+  */
+  --detail-01-mobile-font-size: 1rem;
+  --detail-01-mobile-line-height: 1.5rem;
+  --detail-01-desktop-font-size: 0.75rem;
+  --detail-01-desktop-line-height: 0.875rem;
+  /*
+    Detail 02
+    16/24 mobile
+    14/20 desktop
+  */
+  --detail-02-mobile-font-size: 1rem;
+  --detail-02-mobile-line-height: 1.5rem;
+  --detail-02-desktop-font-size: 0.875rem;
+  --detail-02-desktop-line-height: 1.25rem;
+  /*
+    Detail 03
+    18/24 mobile / desktop  
+  */
+  --detail-03-font-size: 1.125rem;
+  --detail-03-line-height: 1.5rem;
+
+  /* 
+    Colors
+  */
+
+  --black: #000000;
+  --white: #ffffff;
+  --light-grey-1: #8a969e;
+  --light-grey-2: #bfc4c7;
+  --light-grey-3: #ccd2d6;
+  --green: #06c753;
+  --light-yellow: #ffe395;
+  --epiroc-arctic-blue-1: #daeaf2;
+  --epiroc-arctic-blue-2: #ecf4f8;
+  --epiroc-dark-blue: #001e32;
+  --epiroc-electric-green: #86c8bc;
+  --epiroc-grey: #425563;
+  --epiroc-light-blue-1: #48a9c5;
+  --epiroc-light-blue-2: #abd3e2;
+  --epiroc-warm-grey-1: #796e65;
+  --epiroc-warm-grey-2: #bcb7b2;
+  --epiroc-warm-grey-3: #d7d2cb;
+  --epiroc-warm-grey-4: #ebe8e5;
+  --epiroc-warm-grey-4-50: #f5f3f2;
+  --epiroc-warm-grey-5: #f5f4f2;
+  --epiroc-yellow: #ffc72c;
+
+  --border-radius-small: 0.25rem;
+  --border-radius-medium: 0.5rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+// @media (prefers-color-scheme: dark) {
+//   html {
+//     color-scheme: dark;
+//   }
+//   body {
+//     color: white;
+//     background: black;
+//   }
+// }
