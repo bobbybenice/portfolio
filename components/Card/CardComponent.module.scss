@@ -1,0 +1,33 @@
+.card {
+  background-color: var(--white);
+  border-radius: var(--border-radius-large);
+  padding: 1.25rem;
+
+  &.boxShadow {
+    box-shadow: var(--box-shadow);
+  }
+}
+
+.image {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  border: 0.25rem solid var(--epiroc-warm-grey-5);
+  box-sizing: content-box;
+  margin: -0.25rem 0 0.125rem -0.25rem;
+}
+
+.title {
+  color: var(--epiroc-dark-blue);
+  font-size: var(--heading-04-mobile-font-size);
+  line-height: var(--heading-04-mobile-line-height);
+  font-weight: var(--font-weight-medium);
+}
+
+.content {
+  padding: 0.5rem 0 0;
+}
+
+.withOutTitle {
+  padding: 0;
+}

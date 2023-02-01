@@ -1,4 +1,6 @@
 .icon {
+  display: block;
+
   &.pathFill {
     path {
       fill: var(--iconColor);

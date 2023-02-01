@@ -1,14 +1,15 @@
-import axios from 'axios';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { ListItem } from '../../../components';
-import { getTeamLogo, getTeamLogoString } from '../../../helpers';
+import axios from 'axios';
+import { PopupCard, SelectList } from 'components';
+import { TAvailableIcons } from 'components/Icon/IconComponent';
+import { TItem } from 'components/SelectList/SelectListComponent';
+import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+
 import { TTeam } from '../types';
 
 export default function Teams() {
-  const router = useRouter();
-
   const [teams, setTeams] = useState<TTeam[]>([]);
+  const [active, setActive] = useState<TItem | undefined>();
 
   const fetchTeams = async () => {
     await axios
@@ -28,25 +29,38 @@ export default function Teams() {
     return <h1>:: No teams</h1>;
   }
 
+  const activeTeam = teams.find((t) => t.full_name === active?.title);
+
   return (
-    <div>
-      <div style={{ display: 'flex', gap: '16px' }}>
-        <div>
-          {teams.map((team: any) => {
-            const Logo = getTeamLogo(team.abbreviation);
-            console.log(team.name);
-            return (
-              <ListItem
-                key={team.id}
-                title={team.full_name}
-                subtitle={team.id}
-                icon={getTeamLogoString(team.name)}
-                onClick={() => router.push(`/nba/teams/${team.id}`)}
+    <main
+      style={{
+        position: 'relative',
+        backgroundColor: 'lightblue',
+        minHeight: '100vh',
+        padding: '1rem',
+      }}
+    >
+      <div style={{ maxWidth: '70rem', margin: '0 auto' }}>
+        <AnimateSharedLayout>
+          <SelectList
+            items={teams.map((team) => ({
+              title: team.full_name,
+              icon: team.abbreviation as TAvailableIcons,
+            }))}
+            selected={active}
+            onClick={setActive}
+          />
+          <AnimatePresence mode="sync">
+            {active && activeTeam && (
+              <PopupCard
+                {...active}
+                {...activeTeam}
+                onClose={() => setActive(undefined)}
               />
-            );
-          })}
-        </div>
+            )}
+          </AnimatePresence>
+        </AnimateSharedLayout>
       </div>
-    </div>
+    </main>
   );
 }

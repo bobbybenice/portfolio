@@ -1,0 +1,15 @@
+.checkListItem {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: var(--white);
+  border-radius: var(--border-radius-medium);
+  z-index: 1;
+  cursor: pointer;
+
+  @media (min-width: 67.5rem) {
+    flex: 1 0 calc(100% / 3 - 1rem);
+  }
+}

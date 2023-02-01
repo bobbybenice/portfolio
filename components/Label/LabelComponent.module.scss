@@ -1,0 +1,9 @@
+.text {
+  text-transform: var(--textTransform);
+
+  &.center {
+    text-align: center;
+  }
+
+  color: var(--labelColor);
+}

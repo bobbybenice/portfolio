@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import { TeamLogoIcons } from '../../assets';
 
+import { TeamLogoIcons } from '../../assets';
 import { TAvailableColors, TAvailableIconStyles } from '../../styles/types';
+
 import styles from './IconComponent.module.scss';
 
 const iconLogoTypes = TeamLogoIcons;
@@ -13,32 +14,38 @@ export type TAvailableIcons = keyof typeof iconTypes;
  * @default "firstPathFill"
  */
 const iconElementLibrary: Partial<{
-  [iconType in TAvailableIcons]: TAvailableIconStyles;
+  [_iconType in TAvailableIcons]: TAvailableIconStyles;
 }> = {
-  Hawks: 'none',
-  Cavaliers: 'none',
-  Celtics: 'none',
-  Bulls: 'none',
-  Hornets: 'none',
-  Mavericks: 'none',
-  Nets: 'none',
-  Nuggets: 'none',
-  Pistons: 'none',
+  ATL: 'none',
+  CLE: 'none',
+  BOS: 'none',
+  CHI: 'none',
+  CHA: 'none',
+  DAL: 'none',
+  BKN: 'none',
+  DEN: 'none',
+  DET: 'none',
 };
 
 type TIconComponentProps = {
   name: TAvailableIcons;
-  color: TAvailableColors;
+  color?: TAvailableColors;
   className?: string;
   width?: number;
   height?: number;
 };
 
-export const IconComponent = ({ name, ...props }: TIconComponentProps) => {
+export const IconComponent = ({
+  name,
+  color,
+  ...props
+}: TIconComponentProps) => {
   let Icon = iconTypes[name];
-  const style: { [key: string]: string } = {
-    '--iconColor': `var(--${props.color})`,
-  };
+  const style: { [key: string]: string } | undefined = color
+    ? {
+        '--iconColor': `var(--${color})`,
+      }
+    : undefined;
 
   const iconProps: React.SVGProps<SVGSVGElement> = {
     width: props.width ?? 32,

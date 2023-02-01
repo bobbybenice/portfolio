@@ -1,5 +1,16 @@
 .listItem {
-  padding: 1.25rem 1.5rem;
+  display: flex;
+  padding: 1rem 1.25rem;
   border-radius: 0.5rem;
   background-color: var(--green);
+  cursor: pointer;
+}
+
+.icon {
+  margin-right: 0.5rem;
+}
+
+.titleContainer {
+  display: flex;
+  flex-direction: column;
 }

@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import { Icon } from '..';
 import { TAvailableIcons } from '../Icon/IconComponent';
 import styles from './ListItemComponent.module.scss';
@@ -11,8 +10,6 @@ export type TListItem = {
 };
 
 export const ListItemComponent = (props: TListItem) => {
-  const router = useRouter();
-
   const handleClick = () => {
     props.onClick?.();
   };
@@ -24,8 +21,10 @@ export const ListItemComponent = (props: TListItem) => {
           <Icon name={props.icon} color="epiroc-yellow" />
         </div>
       )}
-      <h3 className={styles.title}>{props.title}</h3>
-      <p className={styles.subtitle}>{props.subtitle}</p>
+      <div className={styles.titleContainer}>
+        <h3 className={styles.title}>{props.title}</h3>
+        <p className={styles.subtitle}>{props.subtitle}</p>
+      </div>
     </div>
   );
 };
