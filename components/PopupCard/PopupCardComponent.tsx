@@ -24,9 +24,18 @@ export const PopupCardComponent = ({
       <motion.div layoutId={`title-${title}-popup`}>
         <Label text={title} type="h2" />
       </motion.div>
-      <motion.div className={styles.close} onClick={onClose}>
-        <Icon name="BOS" />
+      <motion.div
+        layoutId={`card-icon-${title}-popup`}
+        className={styles.close}
+        onClick={onClose}
+      >
+        <Icon name="CloseSimple" color="black" />
       </motion.div>
+
+      <motion.div
+        layoutId={`card-content-${title}-popup`}
+        className={styles.line}
+      />
       <motion.div
         initial="hidden"
         variants={{

@@ -8,6 +8,13 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+
+  .checkListItemContainer {
+    @media (min-width: 67.5rem) {
+      display: flex;
+      flex: 1 0 calc(100% / 3 - 1rem);
+    }
+  }
 }
 
 .backdrop {

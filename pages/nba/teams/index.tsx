@@ -29,8 +29,9 @@ export default function Teams() {
     return <h1>:: No teams</h1>;
   }
 
-  const activeTeam = teams.find((t) => t.full_name === active?.title);
+  const activeTeam = teams.find((t) => t.name === active?.title);
 
+  console.log(teams);
   return (
     <main
       style={{
@@ -40,11 +41,11 @@ export default function Teams() {
         padding: '1rem',
       }}
     >
-      <div style={{ maxWidth: '70rem', margin: '0 auto' }}>
+      <div style={{ maxWidth: '75rem', margin: '0 auto' }}>
         <AnimateSharedLayout>
           <SelectList
             items={teams.map((team) => ({
-              title: team.full_name,
+              title: team.name,
               icon: team.abbreviation as TAvailableIcons,
             }))}
             selected={active}

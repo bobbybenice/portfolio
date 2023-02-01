@@ -27,20 +27,49 @@ export const SelectListComponent = ({
 }: TSelectListProps) => {
   return (
     <>
-      <div className={styles.selectList}>
+      <motion.div
+        initial="hidden"
+        variants={{
+          hidden: {
+            opacity: 0,
+          },
+          show: {
+            opacity: 1,
+          },
+        }}
+        animate="show"
+        className={styles.selectList}
+      >
         {items.map((item, i) => {
           const active = fastDeepEqual(selected, item);
 
           return (
-            <CheckListItem
-              key={i}
-              onClick={() => onClick(item)}
-              active={active}
-              {...item}
-            />
+            <motion.div
+              key={item.title}
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  translateY: '2rem',
+                },
+                show: {
+                  opacity: 1,
+                  translateY: 0,
+                  transition: {
+                    delay: 0.05 * i,
+                  },
+                },
+              }}
+              className={styles.checkListItemContainer}
+            >
+              <CheckListItem
+                onClick={() => onClick(item)}
+                active={active}
+                {...item}
+              />
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
       {selected && (
         <motion.div
           onClick={() => onClick(undefined)}

@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 
-import { TeamLogoIcons } from '../../assets';
+import { TeamLogoIcons, UiIcons } from '../../assets';
 import { TAvailableColors, TAvailableIconStyles } from '../../styles/types';
 
 import styles from './IconComponent.module.scss';
 
-const iconLogoTypes = TeamLogoIcons;
-const iconTypes = { ...iconLogoTypes };
+const iconTypes = { ...TeamLogoIcons, ...UiIcons };
 
 export type TAvailableIcons = keyof typeof iconTypes;
 

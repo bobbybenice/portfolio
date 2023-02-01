@@ -8,8 +8,22 @@
   border-radius: var(--border-radius-medium);
   z-index: 1;
   cursor: pointer;
+  overflow: hidden;
 
   @media (min-width: 67.5rem) {
     flex: 1 0 calc(100% / 3 - 1rem);
+  }
+
+  .cardIcon {
+    margin-left: auto;
+  }
+
+  .bottomLine {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 0.25rem;
+    width: 100%;
+    background-color: var(--black);
   }
 }

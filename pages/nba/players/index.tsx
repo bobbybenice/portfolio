@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+
 import { useDebounce } from '../../../helpers';
 import { TPlayer } from '../types';
 
@@ -20,7 +21,7 @@ export default function Players() {
       });
   };
 
-  const fetchPlayersByName = async (name: string) => {
+  const fetchPlayersByName = async (_name: string) => {
     await axios
       .get(`https://www.balldontlie.io/api/v1/players?search=${debouncedQuery}`)
       .then((res) => {
