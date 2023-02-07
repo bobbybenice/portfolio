@@ -1,6 +1,6 @@
 import { CheckListItem } from 'components';
 import { motion } from 'framer-motion';
-import { TTeam } from 'pages/nba/types';
+import { TTeam } from 'helpers';
 
 import styles from './SelectListComponent.module.scss';
 

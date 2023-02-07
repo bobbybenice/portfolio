@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { TTeam } from 'helpers';
 import { useRouter } from 'next/router';
 
 import { Loader } from '../../../components';
-import { TTeam } from '../types';
 
 export default function Team() {
   const [team, setTeam] = useState<TTeam>();

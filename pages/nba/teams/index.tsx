@@ -3,9 +3,12 @@ import axios from 'axios';
 import { PopupCard, SelectList } from 'components';
 import { TAvailableIcons } from 'components/Icon/IconComponent';
 import { AnimatePresence } from 'framer-motion';
-import { getImageByCity, getPlaceholderImageURL } from 'helpers';
-
-import { TTeam, TTeamAbbr } from '../types';
+import {
+  getImageByCity,
+  getPlaceholderImageURL,
+  TTeam,
+  TTeamAbbr,
+} from 'helpers';
 
 export default function Teams() {
   const [teams, setTeams] = useState<TTeam[]>([]);

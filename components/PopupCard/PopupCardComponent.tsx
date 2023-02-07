@@ -1,7 +1,7 @@
 import { Icon, Label } from 'components';
 import { motion, PanInfo } from 'framer-motion';
+import { TTeam } from 'helpers';
 import Image from 'next/image';
-import { TTeam } from 'pages/nba/types';
 
 import styles from './PopupCardComponent.module.scss';
 

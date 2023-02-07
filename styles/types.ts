@@ -1,3 +1,22 @@
+export declare const fontStyles: readonly [
+  'heading-1',
+  'heading-2',
+  'heading-3',
+  'heading-4',
+  'body-1',
+  'body-2',
+  'body-3',
+  'body-4',
+  'label',
+  'detail-1',
+  'detail-2',
+  'detail-3'
+];
+
+export declare type TAvailableFontStyles = typeof fontStyles[number];
+
+export type TAvailableTags = 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span' | 'div';
+
 export declare const myColors: (
   | 'black'
   | 'white'

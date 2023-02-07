@@ -2,9 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
 import { Icon } from 'components';
 import { AnimatePresence, motion } from 'framer-motion';
+import { TPlayer } from 'helpers';
 import Link from 'next/link';
-
-import { TPlayer } from '../types';
 
 export default function Players() {
   const [players, setPlayers] = useState<TPlayer[]>([]);

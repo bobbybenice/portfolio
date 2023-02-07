@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { motion, useDragControls } from 'framer-motion';
+import { TStat } from 'helpers';
 import { useRouter } from 'next/router';
-
-import { TStat } from '../types';
 
 export default function Player() {
   const [playerStat, setPlayerStat] = useState<TStat[]>([]);
