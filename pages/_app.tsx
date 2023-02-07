@@ -1,5 +1,6 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import type { AppProps } from 'next/app';
+
 import '../styles/globals.scss';
 
 const client = new ApolloClient({

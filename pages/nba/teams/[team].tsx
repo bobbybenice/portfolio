@@ -1,6 +1,7 @@
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+
 import { Loader } from '../../../components';
 import { TTeam } from '../types';
 

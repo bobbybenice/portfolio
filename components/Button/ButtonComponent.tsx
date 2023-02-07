@@ -1,8 +1,9 @@
+import { ForwardedRef, forwardRef, PropsWithChildren, ReactNode } from 'react';
 import classNames from 'classnames';
 import { Icon } from 'components';
 import { TAvailableIcons } from 'components/Icon/IconComponent';
-import { ForwardedRef, forwardRef, PropsWithChildren, ReactNode } from 'react';
 import { TAvailableColors } from 'styles/types';
+
 import styles from './ButtonComponent.module.scss';
 
 type TWithLabel = {

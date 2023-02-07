@@ -1,3 +1,5 @@
+import { TAvailableIcons } from 'components/Icon/IconComponent';
+
 export type TPlayer = {
   first_name: string;
   height_feet: number;
@@ -72,6 +74,9 @@ export type TTeam = {
   division: string;
   full_name: string;
   name: string;
+  image: string;
+  placeholderImage: string;
+  icon: TAvailableIcons;
 };
 
 export type TTeamAbbr =

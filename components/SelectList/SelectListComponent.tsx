@@ -1,23 +1,16 @@
 import { CheckListItem } from 'components';
-import { TAvailableIcons } from 'components/Icon/IconComponent';
-import fastDeepEqual from 'fast-deep-equal';
 import { motion } from 'framer-motion';
+import { TTeam } from 'pages/nba/types';
 
 import styles from './SelectListComponent.module.scss';
 
-export type TItem = {
-  title: string;
-  icon: TAvailableIcons;
-  subtitle?: string;
-};
-
 type TSelectListProps = {
   /** Items to display in list */
-  items: Array<TItem>;
+  items: Array<TTeam>;
   /** Click event for each item in list */
-  onClick: (_item?: TItem) => void;
+  onClick: (_item?: TTeam) => void;
   /** Selected item */
-  selected?: TItem;
+  selected?: TTeam;
 };
 
 export const SelectListComponent = ({
@@ -41,11 +34,9 @@ export const SelectListComponent = ({
         className={styles.selectList}
       >
         {items.map((item, i) => {
-          const active = fastDeepEqual(selected, item);
-
           return (
             <motion.div
-              key={item.title}
+              key={item.name}
               variants={{
                 hidden: {
                   opacity: 0,
@@ -61,11 +52,7 @@ export const SelectListComponent = ({
               }}
               className={styles.checkListItemContainer}
             >
-              <CheckListItem
-                onClick={() => onClick(item)}
-                active={active}
-                {...item}
-              />
+              <CheckListItem onClick={() => onClick(item)} {...item} />
             </motion.div>
           );
         })}

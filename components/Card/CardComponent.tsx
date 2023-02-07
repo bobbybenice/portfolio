@@ -1,6 +1,7 @@
+import { PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import Image, { StaticImageData } from 'next/image';
-import { PropsWithChildren } from 'react';
+
 import styles from './CardComponent.module.scss';
 
 export type TCardProps = {

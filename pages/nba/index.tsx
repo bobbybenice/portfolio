@@ -1,14 +1,12 @@
+import { useCallback, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useCallback, useState } from 'react';
-import { Button, Card } from '../../components';
 
+import { Button, Card } from '../../components';
 import QUERY_COUNTRIES from '../queryCountries.graphql';
 
 export default function Nba() {
-  const { data, loading, error } = useQuery(QUERY_COUNTRIES);
-  const router = useRouter();
+  const { data, error } = useQuery(QUERY_COUNTRIES);
   const [buttonLoading, setLoading] = useState(false);
 
   const handleClick = useCallback(() => {

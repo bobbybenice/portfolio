@@ -31,14 +31,7 @@ const nextConfig = {
     return config;
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.nba.com',
-        port: '',
-        pathname: '/teams/uploads/sites/**',
-      },
-    ],
+    domains: ['source.unsplash.com', 'images.unsplash.com'],
   },
 };
 

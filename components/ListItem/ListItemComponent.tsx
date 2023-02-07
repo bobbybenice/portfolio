@@ -1,5 +1,6 @@
-import { Icon } from '..';
 import { TAvailableIcons } from '../Icon/IconComponent';
+import { Icon } from '..';
+
 import styles from './ListItemComponent.module.scss';
 
 export type TListItem = {

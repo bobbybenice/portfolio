@@ -1,27 +1,26 @@
 import { Icon, Label } from 'components';
-import { TAvailableIcons } from 'components/Icon/IconComponent';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
+import { TTeam } from 'pages/nba/types';
 
 import styles from './CheckListItemComponent.module.scss';
 
-type TCheckListItemProps = {
-  active: boolean;
+type TCheckListItemProps = TTeam & {
   onClick: () => void;
-  title: string;
-  icon: TAvailableIcons;
-  subtitle?: string;
 };
 export const CheckListItemComponent = ({
-  title,
-  subtitle,
+  name,
+  image,
   icon,
   onClick,
+  ...args
 }: TCheckListItemProps) => (
   <motion.div
-    key={title}
+    key={name}
     className={styles.checkListItem}
     onClick={onClick}
-    layoutId={`${title}-popup`}
+    layoutId={`${name}-popup`}
+    whileTap={{ scale: 0.95 }}
     initial="hidden"
     variants={{
       show: {
@@ -35,25 +34,35 @@ export const CheckListItemComponent = ({
     }}
     animate="show"
   >
-    <motion.div layoutId={`icon-${title}-popup`}>
+    <motion.div
+      layoutId={`image-${name}-popup`}
+      className={styles.imageContainer}
+    >
+      <Image
+        alt="basketball"
+        src={image}
+        width={1000}
+        height={1000}
+        className={styles.image}
+        placeholder="blur"
+        blurDataURL={args.placeholderImage}
+      />
+    </motion.div>
+    <motion.div layoutId={`icon-${name}-popup`}>
       <Icon className={styles.icon} name={icon} width={28} height={28} />
     </motion.div>
     <motion.div
-      layoutId={`title-${title}-popup`}
-      className={styles.titleContainer}
+      layoutId={`name-${name}-popup`}
+      className={styles.nameContainer}
     >
-      <Label text={title} type="h2" />
+      <Label text={name} type="h2" />
     </motion.div>
     <motion.div
-      layoutId={`card-icon-${title}-popup`}
+      layoutId={`card-icon-${name}-popup`}
       className={styles.cardIcon}
     >
       <Icon name="Card" />
     </motion.div>
-    {subtitle && <Label text={subtitle} type="h3" />}
-    <motion.div
-      layoutId={`card-content-${title}-popup`}
-      className={styles.bottomLine}
-    />
+    {/* <motion.div layoutId={`card-blob-${name}-popup`} className={styles.blob} /> */}
   </motion.div>
 );
