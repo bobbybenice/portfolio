@@ -13,7 +13,6 @@ export default function Home() {
 
       <main
         style={{
-          backgroundColor: 'lightblue',
           minHeight: '100vh',
           display: 'flex',
           justifyContent: 'center',
@@ -29,9 +28,9 @@ export default function Home() {
                 padding: '2rem 4rem',
                 justifyContent: 'center',
                 alignItems: 'center',
-                background:
-                  'linear-gradient(180deg, rgba(189, 205, 214, 0.75) 0%, #7700ff 100%)',
+                background: 'rgba(189, 205, 214, 1)',
                 borderRadius: '1.25rem',
+                color: 'white',
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
