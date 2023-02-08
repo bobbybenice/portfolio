@@ -1,4 +1,3 @@
-import { AnimatedSliderComponent as AnimatedSlider } from './AnimatedSlider/AnimatedSliderComponent';
 import { ButtonComponent as Button } from './Button/ButtonComponent';
 import { CardComponent as Card } from './Card/CardComponent';
 import { CheckListItemComponent as CheckListItem } from './CheckListItem/CheckListItemComponent';
@@ -10,7 +9,6 @@ import { PopupCardComponent as PopupCard } from './PopupCard/PopupCardComponent'
 import { SelectListComponent as SelectList } from './SelectList/SelectListComponent';
 
 export {
-  AnimatedSlider,
   Button,
   Card,
   CheckListItem,

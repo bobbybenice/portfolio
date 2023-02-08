@@ -62,10 +62,13 @@ export default function Gestures() {
           />
         </svg>
       </motion.div>
-      <ul>
-        <li>
-          <Link href={'gestures/drag-to-snap'}>Drag to snap</Link>
-        </li>
+      <ul className={styles.menu}>
+        <Link href="gestures/drag-to-snap" className={styles.menuLink}>
+          <motion.li className={styles.menuItem}>Drag to snap</motion.li>
+        </Link>
+        <Link href="nba/teams" className={styles.menuLink}>
+          <motion.li className={styles.menuItem}>Pop layout</motion.li>
+        </Link>
       </ul>
     </motion.div>
   );

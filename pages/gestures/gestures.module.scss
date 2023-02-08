@@ -36,3 +36,25 @@
   align-items: center;
   cursor: pointer;
 }
+
+.menu {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+
+  .menuLink {
+    .menuItem {
+      list-style: none;
+      background: white;
+      padding: 1rem 2rem;
+      margin-bottom: 1px;
+    }
+
+    &:last-of-type {
+      .menuItem {
+        border-bottom-right-radius: 1.25rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
