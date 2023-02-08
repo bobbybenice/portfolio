@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import axios from 'axios';
 import { Icon } from 'components';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { TPlayer } from 'helpers';
 import Link from 'next/link';
+
+import styles from './players.module.scss';
 
 export default function Players() {
   const [players, setPlayers] = useState<TPlayer[]>([]);
@@ -31,7 +33,11 @@ export default function Players() {
   }, []);
 
   const getColor = useCallback(() => {
-    const colorSet = ['#83c5be', '#edf6f9', '#ffddd2', '#e29578'];
+    const colorSet = [
+      'linear-gradient(180deg, rgba(189, 205, 214, 0.75) 0%, rgb(211, 9, 225) 100%)',
+      'linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)',
+      'linear-gradient(180deg, rgba(189, 205, 214, 0.75) 0%, #7700ff 100%)',
+    ];
     return colorSet[Math.floor(Math.random() * colorSet.length)];
   }, []);
 
@@ -60,7 +66,7 @@ export default function Players() {
   );
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div className={styles.players}>
       <div
         style={{
           display: 'flex',
@@ -102,15 +108,7 @@ export default function Players() {
         </button>
       </div>
       <motion.div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '1rem',
-          margin: '0 auto',
-          alignItems: 'center',
-          justifyContent: 'center',
-          minWidth: '18vw',
-        }}
+        className={styles.list}
         initial="hidden"
         animate="show"
         variants={{
@@ -125,16 +123,12 @@ export default function Players() {
           }),
         }}
       >
-        <AnimatePresence mode="popLayout">
+        <>
           {filteredPlayers.map((player: any) => (
             <Link
               href={`/nba/players/${player.id}`}
               key={player.id}
-              style={{
-                display: 'flex',
-                flex: '0 1 calc(100% / 6 - 1rem)',
-                alignSelf: 'stretch',
-              }}
+              className={styles.listItem}
             >
               <motion.div
                 key={player.id}
@@ -149,53 +143,10 @@ export default function Players() {
                     stiffness: 150,
                   },
                 }}
-                // variants={{
-                //   show: (i) => ({
-                //     scale: 1,
-                //     opacity: 1,
-                //     transition:
-                //       i !== undefined
-                //         ? {
-                //             type: 'spring',
-                //             damping: 20,
-                //             stiffness: 150,
-                //             delay: i * 0.2,
-                //           }
-                //         : {
-                // type: 'spring',
-                // damping: 20,
-                // stiffness: 150,
-                //           },
-                //   }),
-                //   hidden: (i) => ({
-                //     scale: 0.8,
-                //     opacity: 0,
-                //     transition:
-                //       i !== undefined
-                //         ? {
-                //             type: 'spring',
-                //             damping: 20,
-                //             stiffness: 150,
-                //             delay: i * 0.2,
-                //           }
-                //         : {
-                //             type: 'spring',
-                //             damping: 20,
-                //             stiffness: 150,
-                //           },
-                //   }),
-                // }}
                 style={{
-                  display: 'flex',
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  alignSelf: 'stretch',
-                  backgroundColor: getColor(),
-                  padding: '2rem 3rem',
-                  borderRadius: '0.5rem',
-                  textAlign: 'center',
+                  background: getColor(),
                 }}
+                className={styles.card}
               >
                 {player.first_name} {player.last_name}
               </motion.div>
@@ -211,22 +162,16 @@ export default function Players() {
               }}
               transition={{ type: 'spring', damping: 20, stiffness: 150 }}
               style={{
-                display: 'flex',
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-                alignSelf: 'stretch',
                 backgroundColor: 'white',
-                padding: '2rem 3rem',
-                borderRadius: '0.5rem',
-                textAlign: 'center',
                 border: '1px solid black',
+                color: 'black',
               }}
+              className={styles.card}
             >
               {loading ? 'Loading...' : 'Nothing to see :('}
             </motion.div>
           )}
-        </AnimatePresence>
+        </>
       </motion.div>
     </div>
   );

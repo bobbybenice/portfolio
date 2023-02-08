@@ -20,7 +20,7 @@ export default function Home() {
           gap: '1rem',
         }}
       >
-        <ul>
+        <ul style={{ margin: 0, padding: 0 }}>
           <Link href="gestures" style={{ fontSize: '1.25rem' }}>
             <motion.li
               style={{
@@ -28,14 +28,14 @@ export default function Home() {
                 padding: '2rem 4rem',
                 justifyContent: 'center',
                 alignItems: 'center',
-                background: 'rgba(189, 205, 214, 1)',
+                background: '#7700ff',
                 borderRadius: '1.25rem',
                 color: 'white',
               }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Gestures
+              Animation
             </motion.li>
           </Link>
         </ul>

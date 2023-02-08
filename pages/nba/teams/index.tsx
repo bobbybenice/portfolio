@@ -9,6 +9,8 @@ import {
   TTeamAbbr,
 } from 'helpers';
 
+import styles from './teams.module.scss';
+
 export default function Teams() {
   const [teams, setTeams] = useState<TTeam[]>([]);
   const [active, setActive] = useState<TTeam | undefined>();
@@ -54,31 +56,23 @@ export default function Teams() {
   }
 
   return (
-    <main
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        padding: '1rem',
-      }}
-    >
-      <div style={{ maxWidth: '65rem', margin: '1rem auto' }}>
-        <SelectList
-          items={teamsX.map((x) => {
-            const placeholder = getPlaceholderImageURL(x.image);
-            return {
-              ...x,
-              placeholderImage: placeholder,
-            };
-          })}
-          selected={active}
-          onClick={setActive}
-        />
-        <>
-          {active && (
-            <PopupCard {...active} onClose={() => setActive(undefined)} />
-          )}
-        </>
-      </div>
+    <main className={styles.teams}>
+      <SelectList
+        items={teamsX.map((x) => {
+          const placeholder = getPlaceholderImageURL(x.image);
+          return {
+            ...x,
+            placeholderImage: placeholder,
+          };
+        })}
+        selected={active}
+        onClick={setActive}
+      />
+      <>
+        {active && (
+          <PopupCard {...active} onClose={() => setActive(undefined)} />
+        )}
+      </>
     </main>
   );
 }

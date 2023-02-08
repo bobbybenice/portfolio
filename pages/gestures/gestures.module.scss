@@ -38,9 +38,13 @@
 }
 
 .menu {
-  display: inline-block;
+  display: block;
   margin: 0;
   padding: 0;
+
+  @media (min-width: 67.5rem) {
+    display: inline-block;
+  }
 
   .menuLink {
     .menuItem {
@@ -51,9 +55,11 @@
     }
 
     &:last-of-type {
-      .menuItem {
-        border-bottom-right-radius: 1.25rem;
-        margin-bottom: 0;
+      @media (min-width: 67.5rem) {
+        .menuItem {
+          border-bottom-right-radius: 1.25rem;
+          margin-bottom: 0;
+        }
       }
     }
   }
