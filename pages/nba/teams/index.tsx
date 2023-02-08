@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import { PopupCard, SelectList } from 'components';
 import { TAvailableIcons } from 'components/Icon/IconComponent';
-import { AnimatePresence } from 'framer-motion';
 import {
   getImageByCity,
   getPlaceholderImageURL,
@@ -74,11 +73,11 @@ export default function Teams() {
           selected={active}
           onClick={setActive}
         />
-        <AnimatePresence mode="sync">
+        <>
           {active && (
             <PopupCard {...active} onClose={() => setActive(undefined)} />
           )}
-        </AnimatePresence>
+        </>
       </div>
     </main>
   );
