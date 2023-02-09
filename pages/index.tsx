@@ -12,27 +12,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: '1rem',
-        }}
-      >
-        <ul style={{ margin: 0, padding: 0 }}>
-          <Link href="gestures" style={{ fontSize: '1.25rem' }}>
+      <main className="flex justify-center items-center min-h-screen gap-4">
+        <ul>
+          <Link href="gestures" className="text-xl">
             <motion.li
-              style={{
-                display: 'flex',
-                padding: '2rem 4rem',
-                justifyContent: 'center',
-                alignItems: 'center',
-                background: '#7700ff',
-                borderRadius: '1.25rem',
-                color: 'white',
-              }}
+              className="flex py-8 px-16 bg-purple-600 rounded-2xl text-white"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
