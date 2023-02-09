@@ -53,12 +53,8 @@
       content: '';
       height: 0.5rem;
       width: 5rem;
-      border-radius: var(--border-radius-medium);
-      background: linear-gradient(
-        180deg,
-        rgba(189, 205, 214, 0.75) 0%,
-        #a086be 100%
-      );
+      border-radius: 0.75rem;
+      background: rgba(255, 255, 255, 0.75);
       position: absolute;
       top: 1rem;
       left: 50%;
