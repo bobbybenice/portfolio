@@ -2,8 +2,6 @@ import { Layout } from 'components';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import Link from 'next/link';
 
-import styles from './gestures.module.scss';
-
 export default function Gestures() {
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
@@ -23,14 +21,14 @@ export default function Gestures() {
 
   return (
     <Layout>
-      <motion.div className={styles.exampleContainer} style={{ background }}>
+      <motion.div className="w-screen h-screen" style={{ background }}>
         <motion.div
-          className={styles.box}
+          className="bg-white rounded-3xl w-36 h-36 absolute top-[calc(80%-144px/2)] left-[calc(50%-144px/2)] flex justify-center items-center z-0"
           style={{ x }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
         >
-          <svg className={styles.progressIcon} viewBox="0 0 50 50">
+          <svg className="w-4/5 h-4/5" viewBox="0 0 50 50">
             <motion.path
               fill="none"
               strokeWidth="2"
@@ -64,15 +62,17 @@ export default function Gestures() {
             />
           </svg>
         </motion.div>
-        <ul className={styles.menu}>
-          <Link href="gestures/drag-to-snap" className={styles.menuLink}>
-            <motion.li className={styles.menuItem}>Drag to snap</motion.li>
+        <ul>
+          <Link href="gestures/drag-to-snap">
+            <motion.li className="bg-white py-4 px-8 mb-px">
+              Drag to snap
+            </motion.li>
           </Link>
-          <Link href="nba/teams" className={styles.menuLink}>
-            <motion.li className={styles.menuItem}>Layout 1</motion.li>
+          <Link href="nba/teams">
+            <motion.li className="bg-white py-4 px-8 mb-px">Layout 1</motion.li>
           </Link>
-          <Link href="nba/players" className={styles.menuLink}>
-            <motion.li className={styles.menuItem}>Layout 2</motion.li>
+          <Link href="nba/players">
+            <motion.li className="bg-white py-4 px-8">Layout 2</motion.li>
           </Link>
         </ul>
       </motion.div>

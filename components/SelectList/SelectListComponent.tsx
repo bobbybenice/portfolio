@@ -2,8 +2,6 @@ import { CheckListItem } from 'components';
 import { motion } from 'framer-motion';
 import { TTeam } from 'helpers';
 
-import styles from './SelectListComponent.module.scss';
-
 type TSelectListProps = {
   /** Items to display in list */
   items: Array<TTeam>;
@@ -31,7 +29,7 @@ export const SelectListComponent = ({
           },
         }}
         animate="show"
-        className={styles.selectList}
+        className="relative flex flex-col lg:flex-row gap-4 lg:gap-2 lg:flex-wrap"
       >
         {items.map((item, i) => {
           return (
@@ -50,7 +48,7 @@ export const SelectListComponent = ({
                   },
                 },
               }}
-              className={styles.checkListItemContainer}
+              className="relative lg:flex lg:flex-1 lg:basis-[calc(100%/3-1rem)]"
             >
               <CheckListItem onClick={() => onClick(item)} {...item} />
             </motion.div>
@@ -60,7 +58,7 @@ export const SelectListComponent = ({
       {selected && (
         <motion.div
           onClick={() => onClick(undefined)}
-          className={styles.backdrop}
+          className="absolute bg-black/75 w-full h-full top-0 left-0 right-0 bottom-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />

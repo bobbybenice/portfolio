@@ -5,8 +5,6 @@ import { motion } from 'framer-motion';
 import { TPlayer } from 'helpers';
 import Link from 'next/link';
 
-import styles from './players.module.scss';
-
 export default function Players() {
   const [players, setPlayers] = useState<TPlayer[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -66,26 +64,11 @@ export default function Players() {
   );
 
   return (
-    <div className={styles.players}>
-      <div
-        style={{
-          display: 'flex',
-          width: 'auto',
-          margin: '4rem auto',
-          justifyContent: 'center',
-          gap: '1rem',
-          position: 'relative',
-        }}
-      >
+    <div className="flex flex-col py-0 px-4 lg:w-5/12 lg:mx-auto">
+      <div className="flex w-auto my-16 mx-auto justify-center gap-4 relative">
         <input
           ref={searchRef}
-          style={{
-            border: '1px solid gray',
-            borderRadius: '1rem',
-            outline: 'none',
-            padding: '0.5rem 1rem',
-            margin: '0 3rem',
-          }}
+          className="border-solid border border-gray-500 py-2 px-4 rounded-3xl outline-none my-0 mx-12"
           disabled={loading}
           placeholder="Search player.."
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -93,22 +76,13 @@ export default function Players() {
         <button
           onClick={() => setSearchQuery('')}
           disabled={loading}
-          style={{
-            position: 'absolute',
-            right: 0,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            border: 'none',
-            background: 'none',
-            borderRadius: '1rem',
-            padding: 0,
-          }}
+          className="absolute top-2/4 right-0 -translate-y-2/4 border-none bg-none rounded-full p-0"
         >
-          <Icon name="Close" color={loading ? 'epiroc-warm-grey-3' : 'black'} />
+          <Icon name="Close" className="fill-black" />
         </button>
       </div>
       <motion.div
-        className={styles.list}
+        className="flex flex-wrap gap-4 mx-auto items-center justify-center min-w-[18vw]"
         initial="hidden"
         animate="show"
         variants={{
@@ -128,7 +102,7 @@ export default function Players() {
             <Link
               href={`/nba/players/${player.id}`}
               key={player.id}
-              className={styles.listItem}
+              className="flex flex-1 basis-[calc(100%/6-1rem)]"
             >
               <motion.div
                 key={player.id}
@@ -146,7 +120,7 @@ export default function Players() {
                 style={{
                   background: getColor(),
                 }}
-                className={styles.card}
+                className="flex flex-1 items-center justify-center self-stretch py-8 px-12 text-center rounded-lg text-white"
               >
                 {player.first_name} {player.last_name}
               </motion.div>
@@ -161,12 +135,7 @@ export default function Players() {
                 opacity: 0,
               }}
               transition={{ type: 'spring', damping: 20, stiffness: 150 }}
-              style={{
-                backgroundColor: 'white',
-                border: '1px solid black',
-                color: 'black',
-              }}
-              className={styles.card}
+              className="bg-white flex flex-1 items-center justify-center self-stretch py-8 px-12 text-center rounded-lg text-black border-solid border border-black"
             >
               {loading ? 'Loading...' : 'Nothing to see :('}
             </motion.div>

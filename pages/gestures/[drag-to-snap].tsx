@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
-import styles from './drag-to-snap.module.scss';
-
 export type TPosition = {
   top: number;
   left: number;
@@ -42,7 +40,7 @@ const Item = ({
 
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
-  const borderRadius = useTransform(x, xInput, ['100px', '20px', '100px']);
+  const borderRadius = useTransform(x, xInput, ['100px', '24px', '100px']);
   const background = useTransform(x, xInput, [
     'linear-gradient(180deg, rgba(189, 205, 214, 0.75) 0%, rgb(211, 9, 225) 100%)',
     'linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)',
@@ -83,7 +81,7 @@ const Item = ({
     <motion.div
       key={i}
       ref={ref}
-      className={styles.itemOuter}
+      className="p-1 rounded-3xl h-36 w-36 flex-1 basis-[calc(100%/2-1rem)] lg:basis-auto"
       style={{ background }}
       whileTap={{ scale: 0.95 }}
       animate={{
@@ -91,18 +89,26 @@ const Item = ({
         zIndex: isDragging ? 10 : 0,
       }}
     >
-      <motion.div className={styles.item} onClick={handleClick}>
-        <motion.span style={{ color }}>{i}</motion.span>
+      <motion.div
+        className="flex relative items-center justify-center self-start bg-white h-full cursor-pointer rounded-3xl"
+        onClick={handleClick}
+      >
+        <motion.span
+          style={{ color }}
+          className="z-10 pointer-events-none text-3xl"
+        >
+          {i}
+        </motion.span>
         {selected === i && (
           <motion.div
             layoutId="active"
-            className={styles.active}
+            className="w-4/5 h-4/5 absolute top-9/10"
             style={{ borderRadius, background }}
           />
         )}
         {selected === i && (
           <motion.div
-            className={styles.selected}
+            className="bg-black w-2/3 h-2/3 absolute rounded-3xl cursor-grab active:cursor-grabbing"
             layoutId="outline"
             initial={false}
             drag
@@ -188,7 +194,10 @@ export default function DragToSnap() {
   };
 
   return (
-    <motion.div className={styles.dragToSnap} ref={constraintsRef}>
+    <motion.div
+      className="flex flex-wrap gap-4 min-h-screen w-screen p-4 bg-white content-center lg:w-5/12 m-auto"
+      ref={constraintsRef}
+    >
       {Array.from(Array(12).keys()).map((x) => {
         return (
           <Item

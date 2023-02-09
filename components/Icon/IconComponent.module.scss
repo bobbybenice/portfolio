@@ -3,7 +3,7 @@
 
   &.pathFill {
     path {
-      fill: var(--iconColor);
+      fill: inherit;
     }
 
     &.colored-icon-component--has-hover {
@@ -17,72 +17,72 @@
 
   &.firstPathFill {
     path:first-of-type {
-      fill: var(--iconColor);
+      fill: inherit;
     }
   }
 
   &.circleFill {
     circle {
-      fill: var(--iconColor);
+      fill: inherit;
     }
   }
 
   &.pathAndCircleFill {
     path,
     circle {
-      fill: var(--iconColor);
+      fill: inherit;
     }
   }
 
   &.pathFillCircleStroke {
     path {
-      fill: var(--iconColor);
+      fill: inherit;
     }
     circle {
-      stroke: var(--iconColor);
+      stroke: inherit;
     }
   }
 
   &.rectFill {
     rect {
-      fill: var(--iconColor);
+      fill: inherit;
     }
   }
 
   &.rectStroke {
     rect {
-      stroke: var(--iconColor);
+      stroke: inherit;
     }
   }
 
   &.pathStroke {
     path {
-      stroke: var(--iconColor);
+      stroke: inherit;
     }
   }
 
   &.gFill {
     g {
-      fill: var(--iconColor);
+      fill: inherit;
     }
   }
 
   &.strokeFill {
     g {
-      stroke: var(--iconColor);
+      stroke: inherit;
     }
   }
 
   &.rectCircleFill {
     rect,
     circle {
-      fill: var(--iconColor);
+      fill: inherit;
     }
   }
 
   // &.identifierFill {
   //   .colored-icon-target {
-  //     fill: var(--iconColor);
+  //     fill: inherit;
   //   }
   // }
 }

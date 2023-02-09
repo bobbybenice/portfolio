@@ -3,8 +3,6 @@ import { motion, PanInfo } from 'framer-motion';
 import { TTeam } from 'helpers';
 import Image from 'next/image';
 
-import styles from './PopupCardComponent.module.scss';
-
 type TPopupCardItem = TTeam & {
   onClose: () => void;
 };
@@ -26,7 +24,7 @@ export const PopupCardComponent = ({
   };
   return (
     <motion.div
-      className={styles.popupCard}
+      className="h-[calc(100vh-1rem)] flex flex-col items-center gap-2 fixed top-4 left-0 right-0 bg-white pt-28 px-4 pb-4 z-10 overflow-hidden rounded-t-lg lg:top-[15vh] lg:h-[70vh] lg:w-96 lg:pt-36 lg:px-12 lg:pb-12 lg:rounded-lg lg:mx-auto"
       layoutId={`${name}-popup`}
       drag="y"
       dragConstraints={{ top: 0, bottom: 0 }}
@@ -35,21 +33,21 @@ export const PopupCardComponent = ({
     >
       <motion.div
         layoutId={`card-icon-${name}-popup`}
-        className={styles.close}
+        className="absolute top-4 right-4 cursor-pointer z-30"
         onClick={onClose}
       >
-        <Icon name="Close" color="black" />
+        <Icon name="Close" className="fill-black" />
       </motion.div>
       <motion.div
         layoutId={`image-${name}-popup`}
-        className={styles.imageContainer}
+        className="w-full h-24 absolute top-0 left-0 after:content-[''] after:h-2 after:w-20 after:rounded-xl after:bg-white/75 after:absolute after:top-4 after:left-2/4 after:-translate-x-2/4 z-20"
       >
         <Image
           alt="basketball"
           src={image}
           width={100}
           height={100}
-          className={styles.image}
+          className="w-full h-full object-cover"
           placeholder="blur"
           blurDataURL={args.placeholderImage}
         />
@@ -58,16 +56,13 @@ export const PopupCardComponent = ({
         drag="y"
         dragConstraints={{ top: 0, bottom: 0 }}
         dragElastic={0.1}
-        className={styles.content}
+        className="flex flex-col items-center h-full"
       >
-        <motion.div layoutId={`icon-${name}-popup`}>
-          <Icon className={styles.icon} name={icon} width={28} height={28} />
+        <motion.div layoutId={`icon-${name}-popup`} className="mt-12 lg:mt-0">
+          <Icon className="w-28 h-28" name={icon} width={28} height={28} />
         </motion.div>
-        <motion.div
-          layoutId={`name-${name}-popup`}
-          className={styles.nameContainer}
-        >
-          <Label text={name} type="h2" />
+        <motion.div layoutId={`name-${name}-popup`}>
+          <Label text={name} type="h2" className="text-2xl" />
         </motion.div>
         <motion.div
           initial="hidden"
@@ -85,10 +80,10 @@ export const PopupCardComponent = ({
             },
           }}
           animate="show"
-          className={styles.details}
+          className="w-full flex flex-col gap-4 items-center pt-8"
         >
           <motion.div
-            className={styles.row}
+            className="flex gap-2 overflow-hidden"
             key="city"
             variants={{
               hidden: {
@@ -108,7 +103,7 @@ export const PopupCardComponent = ({
             <Label text={args.city} type="h3" />
           </motion.div>
           <motion.div
-            className={styles.row}
+            className="flex gap-2 overflow-hidden"
             key="conference"
             variants={{
               hidden: {
@@ -128,7 +123,7 @@ export const PopupCardComponent = ({
             <Label text={args.conference} type="h3" />
           </motion.div>
           <motion.div
-            className={styles.row}
+            className="flex gap-2 overflow-hidden"
             key="division"
             variants={{
               hidden: {
@@ -149,10 +144,6 @@ export const PopupCardComponent = ({
           </motion.div>
         </motion.div>
       </motion.div>
-      {/* <motion.div
-        className={styles.blob}
-        layoutId={`card-blob-${name}-popup`}
-      /> */}
     </motion.div>
   );
 };

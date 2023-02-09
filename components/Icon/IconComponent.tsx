@@ -24,6 +24,8 @@ const iconElementLibrary: Partial<{
   BKN: 'none',
   DEN: 'none',
   DET: 'none',
+  Card: 'pathFill',
+  Close: 'firstPathFill',
 };
 
 type TIconComponentProps = {
@@ -36,20 +38,20 @@ type TIconComponentProps = {
 
 export const IconComponent = ({
   name,
-  color,
+  // color,
   ...props
 }: TIconComponentProps) => {
   let Icon = iconTypes[name];
-  const style: { [key: string]: string } | undefined = color
-    ? {
-        '--iconColor': `var(--${color})`,
-      }
-    : undefined;
+  // const style: { [key: string]: string } | undefined = color
+  //   ? {
+  //       '--iconColor': `var(--${color})`,
+  //     }
+  //   : undefined;
 
   const iconProps: React.SVGProps<SVGSVGElement> = {
     width: props.width ?? 32,
     height: props.height ?? 32,
-    style: style,
+    // style: style,
   };
 
   return (

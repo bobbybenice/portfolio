@@ -9,8 +9,6 @@ import {
   TTeamAbbr,
 } from 'helpers';
 
-import styles from './teams.module.scss';
-
 export default function Teams() {
   const [teams, setTeams] = useState<TTeam[]>([]);
   const [active, setActive] = useState<TTeam | undefined>();
@@ -33,12 +31,12 @@ export default function Teams() {
     const body = document.getElementsByTagName('body')[0];
 
     if (!active) {
-      body.classList.remove('no-scroll');
+      body.classList.remove('overflow-hidden');
       return;
     }
 
     // TODO: not working on iphone
-    body.classList.add('no-scroll');
+    body.classList.add('overflow-hidden');
   }, [active]);
 
   const teamsX = useMemo(
@@ -56,7 +54,7 @@ export default function Teams() {
   }
 
   return (
-    <main className={styles.teams}>
+    <main className="flex flex-col p-4 lg:w-5/12 lg:my-8 lg:mx-auto">
       <SelectList
         items={teamsX.map((x) => {
           const placeholder = getPlaceholderImageURL(x.image);

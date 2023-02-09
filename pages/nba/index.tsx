@@ -1,17 +1,10 @@
-import { useCallback, useState } from 'react';
 import { useQuery } from '@apollo/client';
 import Link from 'next/link';
 
-import { Button, Card } from '../../components';
 import QUERY_COUNTRIES from '../queryCountries.graphql';
 
 export default function Nba() {
   const { data, error } = useQuery(QUERY_COUNTRIES);
-  const [buttonLoading, setLoading] = useState(false);
-
-  const handleClick = useCallback(() => {
-    setLoading(!buttonLoading);
-  }, [buttonLoading]);
 
   if (error) {
     return <p>:: an error happened</p>;
@@ -22,22 +15,19 @@ export default function Nba() {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        gap: '1rem',
-      }}
-    >
-      <Card boxShadow>
-        <Link href={'nba/players'}>Players</Link>
-      </Card>
-      <Card>
-        <Link href={'nba/teams'}>Teams</Link>
-      </Card>
-      <Button label="Click me" onClick={handleClick} loading={buttonLoading} />
+    <div className="flex justify-center items-center min-h-screen gap-4">
+      <Link
+        href={'nba/players'}
+        className="bg-purple-500 py-4 px-8 rounded-lg text-white hover:bg-purple-700 transition-colors"
+      >
+        Players
+      </Link>
+      <Link
+        href={'nba/teams'}
+        className="bg-purple-500 py-4 px-8 rounded-lg text-white hover:bg-purple-700 transition-colors"
+      >
+        Teams
+      </Link>
     </div>
   );
 }

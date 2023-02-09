@@ -3,8 +3,6 @@ import { motion } from 'framer-motion';
 import { TTeam } from 'helpers';
 import Image from 'next/image';
 
-import styles from './CheckListItemComponent.module.scss';
-
 type TCheckListItemProps = TTeam & {
   onClick: () => void;
 };
@@ -17,7 +15,7 @@ export const CheckListItemComponent = ({
 }: TCheckListItemProps) => (
   <motion.div
     key={name}
-    className={styles.checkListItem}
+    className="relative flex items-start gap-2 pt-16 pb-2 px-4 bg-gradient-to-t from-black to-green-800 cursor-pointer overflow-hidden lg:flex-1 lg:basis-[calc(100%/3-1rem)] rounded-l"
     onClick={onClick}
     layoutId={`${name}-popup`}
     whileTap={{ scale: 0.95 }}
@@ -36,33 +34,26 @@ export const CheckListItemComponent = ({
   >
     <motion.div
       layoutId={`image-${name}-popup`}
-      className={styles.imageContainer}
+      className="absolute top-0 left-0 h-2/4 w-full z-0"
     >
       <Image
         alt="basketball"
         src={image}
         width={1000}
         height={1000}
-        className={styles.image}
+        className="w-full h-full object-cover"
         placeholder="blur"
         blurDataURL={args.placeholderImage}
       />
     </motion.div>
-    <motion.div layoutId={`icon-${name}-popup`}>
-      <Icon className={styles.icon} name={icon} width={28} height={28} />
+    <motion.div layoutId={`icon-${name}-popup`} className="z-10">
+      <Icon name={icon} width={28} height={28} />
     </motion.div>
-    <motion.div
-      layoutId={`name-${name}-popup`}
-      className={styles.nameContainer}
-    >
+    <motion.div layoutId={`name-${name}-popup`} className="z-10 text-white">
       <Label text={name} type="h2" />
     </motion.div>
-    <motion.div
-      layoutId={`card-icon-${name}-popup`}
-      className={styles.cardIcon}
-    >
-      <Icon name="Card" />
+    <motion.div layoutId={`card-icon-${name}-popup`} className="ml-auto z-10">
+      <Icon name="Card" color="white" className="fill-white" />
     </motion.div>
-    {/* <motion.div layoutId={`card-blob-${name}-popup`} className={styles.blob} /> */}
   </motion.div>
 );
