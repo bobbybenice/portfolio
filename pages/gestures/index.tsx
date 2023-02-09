@@ -1,3 +1,4 @@
+import { Layout } from 'components';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import Link from 'next/link';
 
@@ -21,58 +22,60 @@ export default function Gestures() {
   const crossPathB = useTransform(x, [-50, -100], [0, 1]);
 
   return (
-    <motion.div className={styles.exampleContainer} style={{ background }}>
-      <motion.div
-        className={styles.box}
-        style={{ x }}
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-      >
-        <svg className={styles.progressIcon} viewBox="0 0 50 50">
-          <motion.path
-            fill="none"
-            strokeWidth="2"
-            stroke={color}
-            d="M 0, 20 a 20, 20 0 1,0 40,0 a 20, 20 0 1,0 -40,0"
-            style={{ translateX: 5, translateY: 5 }}
-          />
-          <motion.path
-            fill="none"
-            strokeWidth="2"
-            stroke={color}
-            d="M14,26 L 22,33 L 35,16"
-            strokeDasharray="0 1"
-            style={{ pathLength: tickPath }}
-          />
-          <motion.path
-            fill="none"
-            strokeWidth="2"
-            stroke={color}
-            d="M17,17 L33,33"
-            strokeDasharray="0 1"
-            style={{ pathLength: crossPathA }}
-          />
-          <motion.path
-            fill="none"
-            strokeWidth="2"
-            stroke={color}
-            d="M33,17 L17,33"
-            strokeDasharray="0 1"
-            style={{ pathLength: crossPathB }}
-          />
-        </svg>
+    <Layout>
+      <motion.div className={styles.exampleContainer} style={{ background }}>
+        <motion.div
+          className={styles.box}
+          style={{ x }}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+        >
+          <svg className={styles.progressIcon} viewBox="0 0 50 50">
+            <motion.path
+              fill="none"
+              strokeWidth="2"
+              stroke={color}
+              d="M 0, 20 a 20, 20 0 1,0 40,0 a 20, 20 0 1,0 -40,0"
+              style={{ translateX: 5, translateY: 5 }}
+            />
+            <motion.path
+              fill="none"
+              strokeWidth="2"
+              stroke={color}
+              d="M14,26 L 22,33 L 35,16"
+              strokeDasharray="0 1"
+              style={{ pathLength: tickPath }}
+            />
+            <motion.path
+              fill="none"
+              strokeWidth="2"
+              stroke={color}
+              d="M17,17 L33,33"
+              strokeDasharray="0 1"
+              style={{ pathLength: crossPathA }}
+            />
+            <motion.path
+              fill="none"
+              strokeWidth="2"
+              stroke={color}
+              d="M33,17 L17,33"
+              strokeDasharray="0 1"
+              style={{ pathLength: crossPathB }}
+            />
+          </svg>
+        </motion.div>
+        <ul className={styles.menu}>
+          <Link href="gestures/drag-to-snap" className={styles.menuLink}>
+            <motion.li className={styles.menuItem}>Drag to snap</motion.li>
+          </Link>
+          <Link href="nba/teams" className={styles.menuLink}>
+            <motion.li className={styles.menuItem}>Layout 1</motion.li>
+          </Link>
+          <Link href="nba/players" className={styles.menuLink}>
+            <motion.li className={styles.menuItem}>Layout 2</motion.li>
+          </Link>
+        </ul>
       </motion.div>
-      <ul className={styles.menu}>
-        <Link href="gestures/drag-to-snap" className={styles.menuLink}>
-          <motion.li className={styles.menuItem}>Drag to snap</motion.li>
-        </Link>
-        <Link href="nba/teams" className={styles.menuLink}>
-          <motion.li className={styles.menuItem}>Layout 1</motion.li>
-        </Link>
-        <Link href="nba/players" className={styles.menuLink}>
-          <motion.li className={styles.menuItem}>Layout 2</motion.li>
-        </Link>
-      </ul>
-    </motion.div>
+    </Layout>
   );
 }
