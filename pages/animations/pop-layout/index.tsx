@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
-import { PopupCard, SelectList } from 'components';
+import { Layout, PopupCard, SelectList } from 'components';
 import { TAvailableIcons } from 'components/Icon/IconComponent';
 import {
   getImageByCity,
@@ -9,7 +9,7 @@ import {
   TTeamAbbr,
 } from 'helpers';
 
-export default function Teams() {
+export default function PopLayout() {
   const [teams, setTeams] = useState<TTeam[]>([]);
   const [active, setActive] = useState<TTeam | undefined>();
 
@@ -54,23 +54,25 @@ export default function Teams() {
   }
 
   return (
-    <main className="flex flex-col p-4 lg:w-5/12 lg:my-8 lg:mx-auto">
-      <SelectList
-        items={teamsX.map((x) => {
-          const placeholder = getPlaceholderImageURL(x.image);
-          return {
-            ...x,
-            placeholderImage: placeholder,
-          };
-        })}
-        selected={active}
-        onClick={setActive}
-      />
-      <>
-        {active && (
-          <PopupCard {...active} onClose={() => setActive(undefined)} />
-        )}
-      </>
-    </main>
+    <Layout>
+      <div className="flex flex-col p-4 pt-0 lg:w-5/12 lg:mb-8 lg:mx-auto">
+        <SelectList
+          items={teamsX.map((x) => {
+            const placeholder = getPlaceholderImageURL(x.image);
+            return {
+              ...x,
+              placeholderImage: placeholder,
+            };
+          })}
+          selected={active}
+          onClick={setActive}
+        />
+        <>
+          {active && (
+            <PopupCard {...active} onClose={() => setActive(undefined)} />
+          )}
+        </>
+      </div>
+    </Layout>
   );
 }

@@ -12,6 +12,7 @@ export const LayoutComponent = ({ children }: PropsWithChildren) => {
         stiffness: 260,
         damping: 20,
       }}
+      className="pt-8"
     >
       {children}
     </motion.div>

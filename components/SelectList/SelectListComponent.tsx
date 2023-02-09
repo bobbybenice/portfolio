@@ -58,7 +58,7 @@ export const SelectListComponent = ({
       {selected && (
         <motion.div
           onClick={() => onClick(undefined)}
-          className="absolute bg-black/75 w-full h-full top-0 left-0 right-0 bottom-0"
+          className="absolute bg-black/75 w-full h-full top-0 left-0 right-0 bottom-0 z-20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         />

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Layout } from 'components';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 export type TPosition = {
@@ -194,24 +195,26 @@ export default function DragToSnap() {
   };
 
   return (
-    <motion.div
-      className="flex flex-wrap gap-4 min-h-screen w-screen p-4 bg-white content-center lg:w-5/12 m-auto"
-      ref={constraintsRef}
-    >
-      {Array.from(Array(12).keys()).map((x) => {
-        return (
-          <Item
-            key={x}
-            i={x}
-            onMoveEnd={handleMoveEnd}
-            selected={selected}
-            setPosition={setPosition}
-            onMove={handleMove}
-            onClick={handleClick}
-            active={active === x}
-          />
-        );
-      })}
-    </motion.div>
+    <Layout>
+      <motion.div
+        className="flex flex-wrap gap-4 min-h-screen w-screen p-4 pt-0 bg-white content-start lg:w-5/12 mx-auto"
+        ref={constraintsRef}
+      >
+        {Array.from(Array(12).keys()).map((x) => {
+          return (
+            <Item
+              key={x}
+              i={x}
+              onMoveEnd={handleMoveEnd}
+              selected={selected}
+              setPosition={setPosition}
+              onMove={handleMove}
+              onClick={handleClick}
+              active={active === x}
+            />
+          );
+        })}
+      </motion.div>
+    </Layout>
   );
 }
