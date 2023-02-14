@@ -161,11 +161,16 @@ export const Menu = (props: IMenu) => {
           )}
         </motion.div>
       </div>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: open ? 1 : 0 }}
-        className="bg-black/75 absolute top-0 left-0 w-screen h-screen z-20"
-      />
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: open ? 1 : 0 }}
+            className="bg-black/75 absolute top-0 left-0 w-screen h-screen z-20"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
