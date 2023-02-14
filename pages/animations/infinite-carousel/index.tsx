@@ -133,7 +133,7 @@ export default function InfiniteCarousel() {
   // console.log('NEXT INDEX: ', nextIndex);
 
   return (
-    <div className="min-h-[400px] flex justify-center items-center overflow-hidden">
+    <div className="h-screen flex justify-center items-center overflow-hidden">
       <motion.div
         style={{
           width: 250,
