@@ -8,6 +8,7 @@ import { ListItemComponent as ListItem } from './ListItem/ListItemComponent';
 import { LoaderComponent as Loader } from './Loaders/LoaderComponent';
 import { PopupCardComponent as PopupCard } from './PopupCard/PopupCardComponent';
 import { SelectListComponent as SelectList } from './SelectList/SelectListComponent';
+export { Menu } from './Menu/Menu';
 
 export {
   Button,

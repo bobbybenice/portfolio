@@ -25,6 +25,7 @@ const iconElementLibrary: Partial<{
   DEN: 'none',
   DET: 'none',
   Card: 'pathFill',
+  CloseSimple: 'pathFill',
   Close: 'firstPathFill',
 };
 

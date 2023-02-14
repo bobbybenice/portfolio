@@ -24,7 +24,7 @@ export const PopupCardComponent = ({
   };
   return (
     <motion.div
-      className="h-[calc(100vh-1rem)] flex flex-col items-center gap-2 fixed top-4 left-0 right-0 bg-white pt-28 px-4 pb-4 z-10 overflow-hidden rounded-t-lg lg:top-[15vh] lg:h-[70vh] lg:w-96 lg:pt-36 lg:px-12 lg:pb-12 lg:rounded-lg lg:mx-auto z-40"
+      className="h-[calc(100vh-1rem)] flex flex-col items-center gap-2 fixed top-4 left-0 right-0 bg-white pt-28 px-4 pb-4 overflow-hidden rounded-t-lg lg:top-[15vh] lg:h-[70vh] lg:w-96 lg:pt-36 lg:px-12 lg:pb-12 lg:rounded-lg lg:mx-auto z-40"
       layoutId={`${name}-popup`}
       drag="y"
       dragConstraints={{ top: 0, bottom: 0 }}
