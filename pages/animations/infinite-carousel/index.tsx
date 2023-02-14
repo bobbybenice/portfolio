@@ -93,6 +93,7 @@ function Card(props: TCard) {
       initial={props.initial}
       animate={props.animate}
       transition={props.transition}
+      dragSnapToOrigin={props.type === 'main'}
       exit={{
         x: props.type === 'main' ? props.exitX : 0,
         opacity: 0,
