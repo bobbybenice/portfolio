@@ -30,6 +30,7 @@ const closeTransition: Transition = {
 export const Menu = (props: IMenu) => {
   const [open, setOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [hoveredLink, setHoveredLink] = useState('');
   const controls = useAnimationControls();
   const y = useMotionValue(0);
   const yInput = [0, 100, 200];
@@ -145,7 +146,7 @@ export const Menu = (props: IMenu) => {
         }}
       >
         {open && (
-          <ul className="pointer-events-auto">
+          <ul className="pointer-events-auto text-right">
             {props.links.map((link, i) => (
               <Link
                 key={link.href}
@@ -154,14 +155,26 @@ export const Menu = (props: IMenu) => {
                 onClick={handleClose}
               >
                 <motion.li
-                  className="text-white py-2 mb-px"
+                  className="text-white py-2 mb-px relative z-10 inline-block"
                   initial={{ opacity: 0, translateY: -50 }}
                   animate={{
                     opacity: 1,
                     translateY: 0,
                     transition: { delay: 0.1 * (i + 1) },
                   }}
+                  onHoverStart={() => setHoveredLink(link.href)}
                 >
+                  {link.href === hoveredLink && (
+                    <motion.div
+                      className="w-[calc(100%+1rem)] h-full bg-fuchsia-300 rounded-full absolute top-0 -right-2 -z-10"
+                      layoutId="activeLink"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 200,
+                        damping: 20,
+                      }}
+                    />
+                  )}
                   {link.label}
                 </motion.li>
               </Link>

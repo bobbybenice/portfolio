@@ -41,17 +41,35 @@ const Item = ({
 
   const x = useMotionValue(0);
   const xInput = [-100, 0, 100];
-  const borderRadius = useTransform(x, xInput, ['100px', '24px', '100px']);
-  const background = useTransform(x, xInput, [
+  const y = useMotionValue(0);
+  const yInput = [100, 0, -100];
+  const borderR = useTransform(x, xInput, [
+    '71% 29% 21% 79% / 52% 44% 56% 48%',
+    '52% 48% 48% 52% / 43% 44% 56% 57%',
+    '31% 69% 70% 30% / 41% 51% 49% 59%',
+  ]);
+  const _background = useTransform(x, xInput, [
     'linear-gradient(180deg, rgba(189, 205, 214, 0.75) 0%, rgb(211, 9, 225) 100%)',
     'linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)',
     'linear-gradient(180deg, rgba(189, 205, 214, 0.75) 0%, #7700ff 100%)',
   ]);
   const color = useTransform(x, xInput, [
     'rgb(189, 205, 214)',
-    selected === i ? 'rgb(255, 255, 255)' : 'rgb(68, 0, 255)',
+    selected === i ? 'rgb(255, 255, 255)' : 'rgb(168, 100, 255)',
     'rgb(189, 205, 214)',
   ]);
+  const scaleActiveX = useTransform(x, xInput, [
+    3,
+    selected === i ? 1 : 0.5,
+    3,
+  ]);
+  const scaleActiveY = useTransform(y, yInput, [
+    3,
+    selected === i ? 1 : 0.5,
+    3,
+  ]);
+  const activeX = useTransform(x, xInput, [-50, 0, 50]);
+  const activeY = useTransform(y, yInput, [100, 0, -100]);
 
   useEffect(() => {
     setPosition(i, {
@@ -82,8 +100,8 @@ const Item = ({
     <motion.div
       key={i}
       ref={ref}
-      className="p-1 rounded-3xl h-36 w-36 flex-1 basis-[calc(100%/2-1rem)] lg:basis-auto"
-      style={{ background }}
+      className="p-1 h-36 w-[calc(50%-1rem)] lg:w-[calc(100vw*(5/12)/3-1.375rem)]"
+      style={{ borderRadius: borderR, background: '#7700ff' }}
       whileTap={{ scale: 0.95 }}
       animate={{
         scale: active && selected !== i ? 1.05 : 1,
@@ -92,25 +110,31 @@ const Item = ({
       dragListener={false}
     >
       <motion.div
-        className="flex relative items-center justify-center self-start bg-white h-full cursor-pointer rounded-3xl"
+        className="flex relative items-center justify-center self-start h-full cursor-pointer"
         onClick={handleClick}
       >
         <motion.span
           style={{ color }}
-          className="z-10 pointer-events-none text-3xl"
+          className="z-20 pointer-events-none text-3xl"
         >
           {i}
         </motion.span>
         {selected === i && (
           <motion.div
             layoutId="active"
-            className="w-4/5 h-4/5 absolute top-9/10"
-            style={{ borderRadius, background }}
+            className="w-2/5 h-2/5 absolute top-9/10 rounded-full"
+            style={{
+              background: '#7700ff',
+              scaleX: scaleActiveX,
+              scaleY: scaleActiveY,
+              x: activeX,
+              y: activeY,
+            }}
           />
         )}
         {selected === i && (
           <motion.div
-            className="bg-black w-2/3 h-2/3 absolute rounded-3xl cursor-grab active:cursor-grabbing"
+            className="bg-black w-16 h-16 absolute rounded-full cursor-grab active:cursor-grabbing"
             layoutId="outline"
             initial={false}
             drag
@@ -122,7 +146,7 @@ const Item = ({
               handleMoveEnd(i, point.x, point.y);
             }}
             dragSnapToOrigin
-            style={{ x }}
+            style={{ x, y }}
             transition={{
               type: 'spring',
               stiffness: 500,
