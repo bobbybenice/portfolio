@@ -89,6 +89,7 @@ const Item = ({
         scale: active && selected !== i ? 1.05 : 1,
         zIndex: isDragging ? 10 : 0,
       }}
+      dragListener={false}
     >
       <motion.div
         className="flex relative items-center justify-center self-start bg-white h-full cursor-pointer rounded-3xl"

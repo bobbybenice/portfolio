@@ -14,9 +14,9 @@ export default function Home() {
     'rgb(68, 0, 255)',
     '#7700ff',
   ]);
-  const tickPath = useTransform(x, [10, 100], [0, 1]);
-  const crossPathA = useTransform(x, [-10, -55], [0, 1]);
-  const crossPathB = useTransform(x, [-50, -100], [0, 1]);
+  const tickPath = useTransform(x, [10, 50], [0, 1]);
+  const crossPathA = useTransform(x, [-10, -25], [0, 1]);
+  const crossPathB = useTransform(x, [-25, -50], [0, 1]);
 
   return (
     <motion.div
@@ -29,6 +29,7 @@ export default function Home() {
           style={{ x }}
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
+          dragDirectionLock
         >
           <svg className="w-4/5 h-4/5" viewBox="0 0 50 50">
             <motion.path

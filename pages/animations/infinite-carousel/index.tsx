@@ -49,7 +49,10 @@ type TCard = Pick<DraggableProps, 'drag'> &
 function Card(props: TCard) {
   const x = useMotionValue(0);
   const scale = useTransform(x, [-200, 0, 200], [0.5, 1, 0.5]);
-  const rotate = useTransform(x, [-200, 0, 200], [-45, 0, 45], {
+  const rotateY = useTransform(x, [-200, 0, 200], [-90, 0, -90], {
+    clamp: false,
+  });
+  const rotateX = useTransform(x, [-200, 0, 200], [-45, 0, 45], {
     clamp: false,
   });
 
@@ -74,10 +77,11 @@ function Card(props: TCard) {
         height: 250,
         position: 'absolute',
         top: 0,
-        x: x,
-        rotate: rotate,
         cursor: 'grab',
         zIndex: !!props.drag ? 10 : 0,
+        x,
+        rotateX,
+        rotateY,
       }}
       whileTap={{ cursor: 'grabbing' }}
       drag={props.drag}
@@ -134,7 +138,7 @@ export default function InfiniteCarousel() {
   // console.log('NEXT INDEX: ', nextIndex);
 
   return (
-    <div className="h-screen flex justify-center items-center overflow-hidden">
+    <div className="h-[calc(100vh-100px)] flex justify-center items-center overflow-hidden">
       <motion.div
         style={{
           width: 250,

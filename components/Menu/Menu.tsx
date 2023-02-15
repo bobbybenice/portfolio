@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Icon } from 'components';
 import {
   AnimatePresence,
@@ -6,6 +6,8 @@ import {
   PanInfo,
   Transition,
   useAnimationControls,
+  useMotionValue,
+  useTransform,
 } from 'framer-motion';
 import Link from 'next/link';
 
@@ -27,8 +29,15 @@ const closeTransition: Transition = {
 
 export const Menu = (props: IMenu) => {
   const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const controls = useAnimationControls();
+  const y = useMotionValue(0);
+  const yInput = [0, 100, 200];
+  const backdropBackground = useTransform(y, yInput, [
+    'rgba(0,0,0,0)',
+    'rgba(0,0,0,0.5)',
+    'rgba(0,0,0,0.75)',
+  ]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -36,19 +45,9 @@ export const Menu = (props: IMenu) => {
   }, [controls]);
 
   const handleOpen = () => {
-    setOpen(true);
     controls.start({ clipPath: openClipPath }, openTransition);
+    setOpen(true);
   };
-
-  const handleClickOutside = useCallback(
-    (event: MouseEvent | TouchEvent) => {
-      const target = event.target as Element;
-      if (open && !ref?.current?.contains(target)) {
-        handleClose();
-      }
-    },
-    [handleClose, open]
-  );
 
   const handleScroll = useCallback(() => {
     if (window.scrollY > 40) {
@@ -58,33 +57,33 @@ export const Menu = (props: IMenu) => {
 
   useEffect(() => {
     const body = document.getElementsByTagName('body')[0];
-
+    const html = document.getElementsByTagName('html')[0];
     if (!open) {
-      body.classList.remove('no-scroll');
+      body.classList.remove('overflow-hidden', 'relative', 'h-full');
+      html.classList.remove('overflow-hidden', 'relative', 'h-full');
       return;
     }
 
-    // TODO: not working on iphone
-    body.classList.add('no-scroll');
-
-    window.addEventListener('click', handleClickOutside);
+    body.classList.add('overflow-hidden', 'relative', 'h-full');
+    html.classList.add('overflow-hidden', 'relative', 'h-full');
     window.addEventListener('scroll', handleScroll);
-
     return () => {
-      window.removeEventListener('click', handleClickOutside);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [handleClickOutside, handleScroll, open]);
+  }, [handleScroll, open]);
 
   return (
     <>
-      <div ref={ref} className="overflow-hidden w-screen h-screen absolute">
+      <motion.div
+        id="header"
+        className="w-screen h-auto flex justify-end relative"
+      >
         <AnimatePresence mode="popLayout">
           {open && (
             <motion.div
               key="open"
               onClick={handleClose}
-              className="absolute top-2 right-2 z-40"
+              className="fixed top-2 right-2 z-40"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{
@@ -105,10 +104,13 @@ export const Menu = (props: IMenu) => {
                 opacity: 0,
               }}
               onClick={handleOpen}
-              className="absolute top-2 right-2 z-40 bg-fuchsia-500 rounded-full"
+              className="fixed top-2 right-2 z-40 bg-fuchsia-500 rounded-full"
               drag="y"
               dragConstraints={{ top: 0, left: 0, right: 0 }}
               onDrag={(e: any, info: PanInfo) => {
+                if (!isDragging) {
+                  setIsDragging(true);
+                }
                 controls.start({
                   clipPath: `circle(${
                     info.offset.y + 24
@@ -121,53 +123,64 @@ export const Menu = (props: IMenu) => {
                 } else {
                   handleClose();
                 }
+
+                setIsDragging(false);
               }}
               dragSnapToOrigin
+              style={{ y }}
             >
               <Icon name="Card" color="white" className="fill-white" />
             </motion.div>
           )}
         </AnimatePresence>
-        <motion.div
-          className="fixed top-0 right-0 bottom-0 w-[calc(100vw-3.75rem)] bg-fuchsia-500 z-30 px-10 py-10 flex justify-end items-end"
-          initial={{
-            clipPath: closedClipPath,
-          }}
-          animate={controls}
-        >
-          {open && (
-            <ul>
-              {props.links.map((link, i) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="block"
-                  onClick={handleClose}
-                >
-                  <motion.li
-                    className="text-white py-2 mb-px"
-                    initial={{ opacity: 0, translateY: -50 }}
-                    animate={{
-                      opacity: 1,
-                      translateY: 0,
-                      transition: { delay: 0.1 * (i + 1) },
-                    }}
-                  >
-                    {link.label}
-                  </motion.li>
-                </Link>
-              ))}
-            </ul>
-          )}
-        </motion.div>
-      </div>
-      <AnimatePresence>
+      </motion.div>
+      <motion.div
+        className="fixed top-0 right-0 bottom-0 w-[calc(100vw-3.75rem)] bg-fuchsia-500 z-30 px-10 py-10 flex justify-end items-end"
+        initial={{
+          clipPath: closedClipPath,
+        }}
+        animate={controls}
+        style={{
+          pointerEvents: open ? 'auto' : 'none',
+        }}
+      >
         {open && (
+          <ul className="pointer-events-auto">
+            {props.links.map((link, i) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block"
+                onClick={handleClose}
+              >
+                <motion.li
+                  className="text-white py-2 mb-px"
+                  initial={{ opacity: 0, translateY: -50 }}
+                  animate={{
+                    opacity: 1,
+                    translateY: 0,
+                    transition: { delay: 0.1 * (i + 1) },
+                  }}
+                >
+                  {link.label}
+                </motion.li>
+              </Link>
+            ))}
+          </ul>
+        )}
+      </motion.div>
+      <AnimatePresence>
+        {(open || isDragging) && (
           <motion.div
             key="backdrop"
             initial={{ opacity: 0 }}
-            animate={{ opacity: open ? 1 : 0 }}
+            animate={{ opacity: open || isDragging ? 1 : 0 }}
             className="bg-black/75 absolute top-0 left-0 w-screen h-screen z-20"
+            onClick={handleClose}
+            style={{
+              background: isDragging ? backdropBackground : 'rbga(0,0,0,0.75)',
+            }}
+            exit={{ opacity: 0, transition: { delay: 0.2 } }}
           />
         )}
       </AnimatePresence>
