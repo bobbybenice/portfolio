@@ -58,18 +58,21 @@ const Item = ({
     selected === i ? 'rgb(255, 255, 255)' : 'rgb(168, 100, 255)',
     'rgb(189, 205, 214)',
   ]);
-  const scaleActiveX = useTransform(x, xInput, [
-    3,
-    selected === i ? 1 : 0.5,
-    3,
-  ]);
-  const scaleActiveY = useTransform(y, yInput, [
-    3,
-    selected === i ? 1 : 0.5,
-    3,
-  ]);
+
+  // TAIL ELEMENT
+  const scaleActiveX = useTransform(x, xInput, [3, 1, 3]);
+  const scaleActiveY = useTransform(y, yInput, [3, 1, 3]);
   const activeX = useTransform(x, xInput, [-50, 0, 50]);
   const activeY = useTransform(y, yInput, [100, 0, -100]);
+
+  // DRAGGABLE ELEMENT
+  const scaleActiveXHandle = useTransform(x, xInput, [1.5, 1, 1.5]);
+  const scaleActiveYHandle = useTransform(y, yInput, [1.5, 1, 1.5]);
+  const borderRadiusHandle = useTransform(x, xInput, [
+    '31% 69% 70% 30% / 41% 51% 49% 59%',
+    '52% 48% 48% 52% / 43% 44% 56% 57%',
+    '71% 29% 21% 79% / 52% 44% 56% 48%',
+  ]);
 
   useEffect(() => {
     setPosition(i, {
@@ -146,7 +149,13 @@ const Item = ({
               handleMoveEnd(i, point.x, point.y);
             }}
             dragSnapToOrigin
-            style={{ x, y }}
+            style={{
+              x,
+              y,
+              borderRadius: borderRadiusHandle,
+              scaleX: scaleActiveXHandle,
+              scaleY: scaleActiveYHandle,
+            }}
             transition={{
               type: 'spring',
               stiffness: 500,
