@@ -218,7 +218,7 @@ export default function InfiniteCarousel() {
       {expanded && (
         <motion.div
           layoutId={carouselData[index].image}
-          className="w-[50vw] h-[50vw] rounded-lg bg-cover bg-center bg-no-repeat z-50 overflow-hidden relative flex justify-center items-center"
+          className="w-screen h-screen fixed top-4 lg:top-0 lg:w-[50vw] lg:h-[50vw] rounded-lg bg-cover bg-center bg-no-repeat z-50 overflow-hidden lg:relative flex justify-center items-center"
           style={{
             backgroundImage: `url(${carouselData[index].image})`,
           }}
