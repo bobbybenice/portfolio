@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { carouselData } from 'data';
 import {
   AnimatePresence,
   AnimationProps,
@@ -8,8 +9,6 @@ import {
   useMotionValue,
   useTransform,
 } from 'framer-motion';
-
-import { carouselData } from './data';
 
 type TMain = {
   type: 'main';
