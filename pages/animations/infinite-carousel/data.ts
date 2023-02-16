@@ -1,4 +1,4 @@
-export const carouselData = [
+const carouselData = [
   {
     image:
       'https://images.unsplash.com/photo-1453301109223-3e2085a1e69d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3088&q=80',
@@ -20,3 +20,5 @@ export const carouselData = [
     title: 'Portland',
   },
 ];
+
+export { carouselData };
