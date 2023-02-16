@@ -9,7 +9,7 @@ import {
   useTransform,
 } from 'framer-motion';
 
-import { images } from '../carousel';
+import { carouselData } from './data';
 
 type TMain = {
   type: 'main';
@@ -20,6 +20,7 @@ type TMain = {
   exitX: string | number;
   prev: number;
   next: number;
+  onClick: () => void;
 };
 
 type TSidekick = {
@@ -82,8 +83,9 @@ function Card(props: TCard) {
         x,
         rotateX,
         rotateY,
+        borderRadius: '30px',
+        // overflow: 'hidden',
       }}
-      whileTap={{ cursor: 'grabbing' }}
       drag={props.drag}
       dragConstraints={{
         top: 0,
@@ -91,6 +93,7 @@ function Card(props: TCard) {
         bottom: 0,
         left: 0,
       }}
+      onClick={props.type === 'main' ? props.onClick : undefined}
       dragElastic={0.8}
       onDragEnd={props.type === 'main' ? handleDragEnd : undefined}
       dragDirectionLock
@@ -104,16 +107,22 @@ function Card(props: TCard) {
         scale: 0.5,
         transition: { duration: 0.2 },
       }}
+      whileHover={props.type === 'main' ? { scale: 1.05 } : {}}
+      whileTap={
+        props.type === 'main' ? { scale: 0.95, cursor: 'grabbing' } : {}
+      }
     >
       <motion.div
+        layoutId={props.src}
+        className="rounded-lg"
         style={{
           width: 250,
           height: 250,
           backgroundColor: props.type === 'main' ? '#ff0000' : '#00aabb',
-          borderRadius: 30,
           scale,
           backgroundImage: `url(${props.src})`,
           backgroundSize: 'cover',
+          backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
       />
@@ -124,21 +133,22 @@ function Card(props: TCard) {
 export default function InfiniteCarousel() {
   const [index, setIndex] = useState(0);
   const [exitX, setExitX] = useState<string | number>('100%');
+  const [expanded, setExpanded] = useState(false);
 
   const handleSetIndex = (index: number) => {
     setIndex(index);
   };
 
-  const prevIndex = index > 0 ? index - 1 : images.length - 1;
+  const prevIndex = index > 0 ? index - 1 : carouselData.length - 1;
 
-  const nextIndex = index < images.length - 1 ? index + 1 : 0;
+  const nextIndex = index < carouselData.length - 1 ? index + 1 : 0;
 
   // console.log('PREV INDEX: ', prevIndex);
   // console.log('INDEX: ', index);
   // console.log('NEXT INDEX: ', nextIndex);
 
   return (
-    <div className="h-[calc(100vh-100px)] flex justify-center items-center overflow-hidden">
+    <div className="h-[calc(100vh-100px)] flex flex-col gap-8 justify-center items-center overflow-hidden">
       <motion.div
         style={{
           width: 250,
@@ -157,12 +167,12 @@ export default function InfiniteCarousel() {
               scale: { duration: 0.2 },
               opacity: { duration: 0.4 },
             }}
-            src={images[prevIndex]}
+            src={carouselData[prevIndex].image}
           />
           <Card
             type="main"
             key={index}
-            src={images[index]}
+            src={carouselData[index].image}
             animate={{ scale: 1, x: 0, opacity: 1 }}
             transition={{
               type: 'spring',
@@ -175,9 +185,10 @@ export default function InfiniteCarousel() {
             index={index}
             setIndex={handleSetIndex}
             drag="x"
-            max={images.length - 1}
+            max={carouselData.length - 1}
             prev={prevIndex}
             next={nextIndex}
+            onClick={() => setExpanded(!expanded)}
           />
           <Card
             type="sidekick"
@@ -189,10 +200,56 @@ export default function InfiniteCarousel() {
               scale: { duration: 0.2 },
               opacity: { duration: 0.4 },
             }}
-            src={images[nextIndex]}
+            src={carouselData[nextIndex].image}
           />
         </AnimatePresence>
       </motion.div>
+      {!expanded && (
+        <motion.h1
+          onClick={() => setExpanded(true)}
+          layoutId={`${carouselData[index].title}`}
+          className="text-2xl uppercase font-bold text-white bg-fuchsia-500 py-2 px-6 rounded-full cursor-pointer"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {carouselData[index].title}
+        </motion.h1>
+      )}
+      {expanded && (
+        <motion.div
+          layoutId={carouselData[index].image}
+          className="w-[50vw] h-[50vw] rounded-lg bg-cover bg-center bg-no-repeat z-50 overflow-hidden relative flex justify-center items-center"
+          style={{
+            backgroundImage: `url(${carouselData[index].image})`,
+          }}
+        >
+          <motion.div className="absolute w-full h-full bg-white/90 -z-10" />
+          <motion.h1
+            onClick={() => setExpanded(false)}
+            layoutId={`${carouselData[index].title}`}
+            className="text-2xl uppercase font-bold text-white bg-fuchsia-500 py-2 px-6 rounded-full cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {carouselData[index].title}
+          </motion.h1>
+        </motion.div>
+      )}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            key="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="bg-black/75 absolute top-0 left-0 w-screen h-screen z-40"
+            onClick={() => setExpanded(false)}
+            style={{
+              background: 'rbga(0,0,0,0.75)',
+            }}
+            exit={{ opacity: 0 }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

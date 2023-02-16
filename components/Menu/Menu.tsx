@@ -84,7 +84,7 @@ export const Menu = (props: IMenu) => {
             <motion.div
               key="open"
               onClick={handleClose}
-              className="fixed top-2 right-2 z-40"
+              className="fixed top-0 right-0 z-40 cursor-pointer"
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{
@@ -92,7 +92,11 @@ export const Menu = (props: IMenu) => {
                 opacity: 0,
               }}
             >
-              <Icon name="CloseSimple" color="white" className="fill-white" />
+              <Icon
+                name="CloseSimple"
+                color="white"
+                className="fill-white w-12 h-12"
+              />
             </motion.div>
           )}
           {!open && (
@@ -105,7 +109,7 @@ export const Menu = (props: IMenu) => {
                 opacity: 0,
               }}
               onClick={handleOpen}
-              className="fixed top-2 right-2 z-40 bg-fuchsia-500 rounded-full"
+              className="fixed top-0 right-0 z-40 bg-fuchsia-500 rounded-full cursor-pointer"
               drag="y"
               dragConstraints={{ top: 0, left: 0, right: 0 }}
               onDrag={(e: any, info: PanInfo) => {
@@ -130,7 +134,11 @@ export const Menu = (props: IMenu) => {
               dragSnapToOrigin
               style={{ y }}
             >
-              <Icon name="Card" color="white" className="fill-white" />
+              <Icon
+                name="Card"
+                color="white"
+                className="fill-white w-12 h-12"
+              />
             </motion.div>
           )}
         </AnimatePresence>
