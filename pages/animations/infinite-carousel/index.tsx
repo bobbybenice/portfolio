@@ -118,7 +118,8 @@ function Card(props: TCard) {
         style={{
           width: 250,
           height: 250,
-          backgroundColor: props.type === 'main' ? '#ff0000' : '#00aabb',
+          background:
+            'linear-gradient(180deg, rgba(189, 205, 214, 0.75) 0%, #7700ff 100%)',
           scale,
           backgroundImage: `url(${props.src})`,
           backgroundSize: 'cover',
