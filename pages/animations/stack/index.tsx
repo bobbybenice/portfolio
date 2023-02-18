@@ -45,15 +45,12 @@ function Card(props: TCard) {
   function handleDragEnd(event: any, info: PanInfo) {
     if (props.setExitX && props.setIndex) {
       if (info.offset.x < -100) {
-        console.log('here');
-
         props.setExitX(-250);
         props.setIndex(
           props.index > 0 ? props.index - 1 : props.items.length - 1
         );
       }
       if (info.offset.x > 100) {
-        console.log('there');
         props.setExitX(250);
         props.setIndex(
           props.index === props.items.length - 1 ? 0 : props.index + 1
@@ -108,12 +105,6 @@ function Card(props: TCard) {
 export default function Stack() {
   const [index, setIndex] = useState(0);
   const [exitX, setExitX] = useState<number | string>('100%');
-
-  console.log(
-    'THIS INDEX: ',
-    index,
-    index - 1 > -1 ? index - 1 : images.length - 1
-  );
 
   return (
     <div className="flex w-screen h-96 justify-center items-center overflow-hidden">

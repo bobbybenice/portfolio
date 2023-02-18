@@ -18,7 +18,6 @@ export default function Player() {
 
   const startDrag = useCallback(
     (event: PointerEvent) => {
-      console.log('DRAG');
       controls.start(event);
     },
     [controls]

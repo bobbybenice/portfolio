@@ -83,25 +83,9 @@ export default function Carousel() {
     _offsetX: number,
     _velocityX: number
   ) => {
-    // console.log('i: ', i);
-    // console.log('x: ', x);
-    // console.log('y: ', y);
-
-    // const swipe = swipePower(offsetX, velocityX);
-    // if (swipe < -swipeConfidenceThreshold) {
-    //   paginate(1);
-    // } else if (swipe > swipeConfidenceThreshold) {
-    //   paginate(-1);
-    // }
-
     const distanceToSwipe = 100;
     const containerWidth =
       constraintsRef.current?.offsetWidth ?? window.innerWidth;
-
-    console.log('container width: ', containerWidth);
-    console.log('x: ', x);
-    console.log(containerWidth / 2 + distanceToSwipe);
-    console.log(containerWidth / 2 - distanceToSwipe);
 
     if (x > containerWidth / 2 + distanceToSwipe) {
       paginate(i + 1);
@@ -112,11 +96,6 @@ export default function Carousel() {
       setActive(i - 1);
     }
   };
-
-  console.log('ACTIVE: ', active);
-  console.log('PAGE: ', page);
-  console.log('DIRECTION: ', direction);
-  console.log('IMAGE INDEX: ', imageIndex);
 
   return 1 > 0 ? (
     <div
