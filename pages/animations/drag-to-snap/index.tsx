@@ -148,6 +148,7 @@ const Item = ({
             onDragEnd={(e, { point }) => {
               handleMoveEnd(i, point.x, point.y);
             }}
+            dragDirectionLock
             dragSnapToOrigin
             style={{
               x,

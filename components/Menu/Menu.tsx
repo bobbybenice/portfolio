@@ -4,8 +4,6 @@ import {
   AnimatePresence,
   motion,
   PanInfo,
-  Transition,
-  useAnimationControls,
   useMotionValue,
   useTransform,
 } from 'framer-motion';
@@ -15,25 +13,26 @@ interface IMenu {
   links: Array<{ label: string; href: string }>;
 }
 
-const closedClipPath = 'circle(48px at calc(100% - 16px) 16px)';
-const openClipPath = `circle(1200px at calc(100% - 48px) 40px)`;
-const openTransition: Transition = {
-  type: 'spring',
-  stiffness: 30,
-  damping: 6,
-};
-const closeTransition: Transition = {
-  type: 'tween',
-  duration: 0.3,
-};
-
 export const Menu = (props: IMenu) => {
   const [open, setOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [thresholdIsMet, setThresholdIsMet] = useState(false);
   const [hoveredLink, setHoveredLink] = useState('');
-  const controls = useAnimationControls();
   const y = useMotionValue(0);
   const yInput = [0, 100, 200];
+  const menuThresholdScale = useTransform(y, [0, 180, 200], [1, 0, 1.2]);
+  const menuOpacity = useTransform(y, yInput, [0, 0.5, 1]);
+  const menuTranslateY = useTransform(y, yInput, ['100%', '100%', '0%']);
+  const borderRadiusHandle = useTransform(y, yInput, [
+    '50% 50% 48% 52% / 64% 65% 35% 36%',
+    '50% 50% 48% 52% / 64% 65% 35% 36%',
+    '50% 50% 48% 52% / 50% 52% 48% 50%',
+  ]);
+  const borderRadiusHandleBg = useTransform(y, yInput, [
+    '0%',
+    '50% 50% 48% 52% / 100% 100% 0% 0%',
+    '50% 50% 48% 52% / 99% 99% 1% 1%',
+  ]);
   const backdropBackground = useTransform(y, yInput, [
     'rgba(0,0,0,0)',
     'rgba(0,0,0,0.5)',
@@ -42,11 +41,9 @@ export const Menu = (props: IMenu) => {
 
   const handleClose = useCallback(() => {
     setOpen(false);
-    controls.start({ clipPath: closedClipPath }, closeTransition);
-  }, [controls]);
+  }, []);
 
   const handleOpen = () => {
-    controls.start({ clipPath: openClipPath }, openTransition);
     setOpen(true);
   };
 
@@ -73,123 +70,168 @@ export const Menu = (props: IMenu) => {
     };
   }, [handleScroll, open]);
 
+  console.log(isDragging, open);
+
   return (
     <>
       <motion.div
         id="header"
         className="w-screen h-auto flex justify-end relative"
       >
-        <AnimatePresence mode="popLayout">
-          {open && (
-            <motion.div
-              key="open"
-              onClick={handleClose}
-              className="fixed top-0 right-0 z-40 cursor-pointer"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{
-                scale: 0,
-                opacity: 0,
-              }}
-            >
-              <Icon
-                name="CloseSimple"
-                color="white"
-                className="fill-white w-12 h-12"
-              />
-            </motion.div>
-          )}
-          {!open && (
-            <motion.div
-              key="closed"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{
-                scale: 0,
-                opacity: 0,
-              }}
-              onClick={handleOpen}
-              className="fixed top-0 right-0 z-40 bg-fuchsia-500 rounded-full cursor-pointer"
-              drag="y"
-              dragConstraints={{ top: 0, left: 0, right: 0 }}
-              onDrag={(e: any, info: PanInfo) => {
-                if (!isDragging) {
-                  setIsDragging(true);
-                }
-                controls.start({
-                  clipPath: `circle(${
-                    info.offset.y + 24
-                  }px at calc(100% - 24px) 24px)`,
-                });
-              }}
-              onDragEnd={(e: any, info: PanInfo) => {
-                if (info.point.y > 200) {
-                  handleOpen();
-                } else {
-                  handleClose();
-                }
+        <motion.div
+          className="fixed w-12 h-screen bg-fuchsia-500 z-40 origin-top right-0 top-8"
+          style={{ y, borderRadius: borderRadiusHandleBg }}
+          initial={{ translateY: '-100%' }}
+        />
+        <motion.div
+          key="closed"
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{
+            scale: 0,
+            opacity: 0,
+          }}
+          className="fixed -top-2 right-0 z-40 bg-fuchsia-500 rounded-full cursor-pointer h-16 flex justify-center items-end"
+          drag={!open ? 'y' : undefined}
+          dragConstraints={{ top: 0, left: 0, right: 0 }}
+          onDrag={(e: any, info: PanInfo) => {
+            if (!isDragging) {
+              setIsDragging(true);
+            }
 
-                setIsDragging(false);
-              }}
-              dragSnapToOrigin
-              style={{ y }}
-            >
-              <Icon
-                name="Card"
-                color="white"
-                className="fill-white w-12 h-12"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-      <motion.div
-        className="fixed top-0 right-0 bottom-0 w-[calc(100vw-3.75rem)] bg-fuchsia-500 z-30 px-10 py-10 flex justify-end items-end"
-        initial={{
-          clipPath: closedClipPath,
-        }}
-        animate={controls}
-        style={{
-          pointerEvents: open ? 'auto' : 'none',
-        }}
-      >
-        {open && (
-          <ul className="pointer-events-auto text-right">
-            {props.links.map((link, i) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block"
+            if (info.offset.y >= 200 && !thresholdIsMet) {
+              setThresholdIsMet(true);
+            }
+
+            if (info.offset.y < 200 && thresholdIsMet) {
+              setThresholdIsMet(false);
+            }
+          }}
+          onDragEnd={(e: any, info: PanInfo) => {
+            if (info.offset.y >= 200) {
+              handleOpen();
+            } else {
+              handleClose();
+            }
+            setIsDragging(false);
+          }}
+          dragSnapToOrigin
+          style={{
+            y,
+            borderRadius: borderRadiusHandle,
+          }}
+        >
+          <AnimatePresence mode="popLayout">
+            {!open && !isDragging && (
+              <motion.div
+                key="open"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{
+                  scale: 0,
+                  opacity: 0,
+                }}
+                onClick={handleOpen}
+              >
+                <Icon
+                  name="Card"
+                  color="white"
+                  className="fill-white w-12 h-12"
+                />
+              </motion.div>
+            )}
+            {isDragging && !open && (
+              <motion.div
+                key="dragging"
+                style={{ scale: menuThresholdScale }}
+                className="w-12 h-12 flex justify-center items-center"
+              >
+                <div className="bg-white w-6 h-6 rounded-full" />
+              </motion.div>
+            )}
+            {open && (
+              <motion.div
+                key="closed"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{
+                  scale: 0,
+                  opacity: 0,
+                }}
                 onClick={handleClose}
               >
-                <motion.li
-                  className="text-white py-2 mb-px relative z-10 inline-block"
-                  initial={{ opacity: 0, translateY: -50 }}
-                  animate={{
-                    opacity: 1,
-                    translateY: 0,
-                    transition: { delay: 0.1 * (i + 1) },
-                  }}
-                  onHoverStart={() => setHoveredLink(link.href)}
-                >
-                  {link.href === hoveredLink && (
-                    <motion.div
-                      className="w-[calc(100%+1rem)] h-full bg-fuchsia-300 rounded-full absolute top-0 -right-2 -z-10"
-                      layoutId="activeLink"
-                      transition={{
-                        type: 'spring',
-                        stiffness: 200,
-                        damping: 20,
-                      }}
-                    />
-                  )}
-                  {link.label}
-                </motion.li>
-              </Link>
-            ))}
-          </ul>
-        )}
+                <Icon
+                  name="CloseSimple"
+                  color="white"
+                  className="fill-white w-12 h-12"
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
       </motion.div>
+      <AnimatePresence>
+        {/* {(open || isDragging) && ( */}
+        <motion.div
+          key="menu"
+          className="fixed top-0 right-0 w-screen h-screen bg-fuchsia-500 z-30 flex justify-end items-end p-12 pb-20"
+          initial={{ opacity: 0, translateY: '100%' }}
+          exit={{ opacity: 0, translateY: '100%' }}
+          style={
+            isDragging
+              ? {
+                  opacity: menuOpacity,
+                  translateY: menuTranslateY,
+                  transformOrigin: 'top',
+                }
+              : {
+                  opacity: open ? 1 : 0,
+                }
+          }
+          animate={{
+            opacity: open ? 1 : 0,
+            translateY: open ? '0%' : '100%',
+          }}
+        >
+          {open && (
+            <ul className="pointer-events-auto text-right">
+              {props.links.map((link, i) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block"
+                  onClick={handleClose}
+                >
+                  <motion.li
+                    className="text-white py-2 mb-px relative z-10 inline-block"
+                    initial={{ opacity: 0, translateY: -50 }}
+                    animate={{
+                      opacity: 1,
+                      translateY: 0,
+                      transition: { delay: 0.1 * (i + 1) },
+                    }}
+                    onHoverStart={() => setHoveredLink(link.href)}
+                  >
+                    {link.href === hoveredLink && (
+                      <motion.div
+                        className="w-[calc(100%+1rem)] h-full bg-fuchsia-300 rounded-full absolute top-0 -right-2 -z-10"
+                        layoutId="activeLink"
+                        transition={{
+                          type: 'spring',
+                          stiffness: 200,
+                          damping: 20,
+                        }}
+                      />
+                    )}
+                    {link.label}
+                  </motion.li>
+                </Link>
+              ))}
+            </ul>
+          )}
+        </motion.div>
+        {/* )} */}
+      </AnimatePresence>
       <AnimatePresence>
         {(open || isDragging) && (
           <motion.div

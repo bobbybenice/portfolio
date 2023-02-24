@@ -89,7 +89,6 @@ export function CarouselCard({ overflowHidden, ...props }: TCard) {
         bottom: 0,
         left: 0,
       }}
-      onClick={props.type === 'main' ? props.onClick : undefined}
       dragElastic={0.8}
       onDragEnd={props.type === 'main' ? handleDragEnd : undefined}
       dragDirectionLock
@@ -104,9 +103,7 @@ export function CarouselCard({ overflowHidden, ...props }: TCard) {
         transition: { duration: 0.2 },
       }}
       whileHover={props.type === 'main' ? { scale: 1.05 } : {}}
-      whileTap={
-        props.type === 'main' ? { scale: 0.95, cursor: 'grabbing' } : {}
-      }
+      whileTap={props.type === 'main' ? { cursor: 'grabbing' } : {}}
     >
       <motion.div
         layoutId={props.src}
@@ -123,10 +120,17 @@ export function CarouselCard({ overflowHidden, ...props }: TCard) {
         }}
       />
       <motion.div
-        className="absolute w-4 h-4 rounded-full top-2 right-2 bg-fuchsia-500 z-30 flex justify-center items-center"
+        className="absolute w-8 h-8 rounded-full bottom-4 right-4 bg-fuchsia-500 z-30 flex justify-center items-center pointer-events-auto"
         layoutId={`${props.src}-button`}
+        onClick={props.type === 'main' ? props.onClick : undefined}
+        whileHover={
+          props.type === 'main' ? { scale: 1.05, cursor: 'pointer' } : {}
+        }
+        whileTap={
+          props.type === 'main' ? { scale: 0.95, cursor: 'pointer' } : {}
+        }
       >
-        <motion.div className="w-2 h-2 rounded-full bg-white" />
+        <motion.div className="w-4 h-4 rounded-full bg-white" />
       </motion.div>
     </motion.div>
   );
