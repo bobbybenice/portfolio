@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import {
+  CARD_WIDTH,
+  CarouselCard,
+} from 'components/CarouselCard/CarouselCardComponent';
 import { carouselData } from 'data';
 import { AnimatePresence, motion } from 'framer-motion';
-
-import { CARD_WIDTH, CarouselCard } from './components/carousel-card';
 
 export default function InfiniteCarousel() {
   const [index, setIndex] = useState(0);

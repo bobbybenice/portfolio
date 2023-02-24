@@ -45,7 +45,7 @@ type TCard = Pick<DraggableProps, 'drag'> &
 
 export const CARD_WIDTH = 300;
 
-export function CarouselCard({ overflowHidden, ...props }: TCard) {
+export const CarouselCard = ({ overflowHidden, ...props }: TCard) => {
   const x = useMotionValue(0);
   const rotateY = useTransform(x, [-200, 0, 200], [-90, 0, -90], {
     clamp: false,
@@ -134,4 +134,4 @@ export function CarouselCard({ overflowHidden, ...props }: TCard) {
       </motion.div>
     </motion.div>
   );
-}
+};
